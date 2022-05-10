@@ -1,0 +1,40 @@
+.make__post {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 4rem auto;
+    background: #efeeee;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.make__post--top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.make__post--top input {
+    padding: 10px;
+    border-radius: 999px;
+    border: none;
+}
+
+.text-input {
+    flex: 1;
+}
+
+.make__post--bottom {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.make__post--bottom button {
+    width: 100%;
+    background: #0075FF;
+    border-style: none;
+    border-radius: 999px;
+    padding: 10px;
+    margin-top: 1rem;
+}

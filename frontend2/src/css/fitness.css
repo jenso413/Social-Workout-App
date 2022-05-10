@@ -1,0 +1,7 @@
+.body {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 22% 78%;
+    margin: 0;
+    padding: 0;
+}

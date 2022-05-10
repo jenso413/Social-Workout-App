@@ -1,0 +1,35 @@
+.post__card {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    background: #efeeee;
+    width: 80%;
+    margin: 1rem auto;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.post__top {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.post__top--text {
+    margin-right: auto;
+}
+
+.post__content {
+    text-align: center;
+}
+
+.post__interactions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.post__interactions div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

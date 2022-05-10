@@ -1,0 +1,15 @@
+.community {
+    background: #efeeee;
+    padding: 20px;
+    height: calc(100vh - 100px);
+    position: sticky;
+    top: 100px;
+}
+
+.community--button {
+    padding: 10px;
+    width: 50%;
+    display: block;
+    margin: 2rem auto;
+    border-radius: 10px;
+}

@@ -1,0 +1,7 @@
+.grid-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 22% 56% 22%;
+    margin: 0;
+    padding: 0;
+}

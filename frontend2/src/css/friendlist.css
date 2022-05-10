@@ -1,0 +1,12 @@
+.sidebar__left {
+    background: #efeeee;
+    padding: 20px;
+    height: calc(100vh - 100px);
+    position: sticky;
+    top: 100px;
+}
+
+.sidebar__left--header {
+    text-align: center;
+    margin: 2rem 0;
+}

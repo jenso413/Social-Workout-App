@@ -1,0 +1,33 @@
+/* .set {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+} */
+
+input {
+    padding: 10px;
+    border-radius: 999px;
+    border: none;
+    background: #C4C4C4;
+    text-align: center;
+}
+
+.reps-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    justify-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.reps-container input {
+    width: 45%;
+}
+
+/* .reps {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    justify-items: center;
+} */

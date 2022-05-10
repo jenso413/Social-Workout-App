@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    display: flex;
+    background: #d9d8d8;
+    justify-content: space-between;
+    height: 100px;
+    padding: 0px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* Nav Left */
+
+.nav__left {
+    display: flex;
+    align-items: center;
+}
+
+.nav__left img {
+    height: 70px;
+}
+
+/* Nav Center */
+
+/* Components */
+
+/* Nav Right */
+
+.nav__right {
+    display: flex;
+    align-items: center;
+}
+
+.user__info {
+    display: flex;
+    align-items: center;
+}
+
+.user__info h4 {
+    font-size: 1.3rem;
+    margin-left: 1rem;
+}
+
+
+

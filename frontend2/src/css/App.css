@@ -1,0 +1,42 @@
+.app {
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(90deg, #0075FF 12.13%, #0075FF 19.21%, #22F91F 83.41%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+}
+
+.logo-container {
+    width: 50%;
+    margin: 0rem auto;
+}
+
+.link-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.link-container button {
+    border: none;
+    background: none;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+.sign-up-btn {
+    padding: 20px 100px;
+    color: white;
+    background: black;
+    border-style: none;
+    border-radius: 20px;
+    font-size: 36px;
+}

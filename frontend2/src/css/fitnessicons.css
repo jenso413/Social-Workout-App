@@ -1,0 +1,15 @@
+.nav__icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.strong-icon {
+    height: 50px;
+}
+
+.strong-icon-container {
+    background: #22F91F;
+    padding: 10px;
+    border-radius: 50%;
+}
