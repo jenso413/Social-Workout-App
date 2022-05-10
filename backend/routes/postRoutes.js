@@ -1,12 +1,12 @@
 const express = require('express')
 const Post = require('../models/Posts');
 const router = express.Router();
-const { addNewPost, getAllPosts } = require('../controllers/postController')
+const { addNewPost, getAllPosts, updatePost } = require('../controllers/postController')
+const { protect } = require('../middleware/authMiddleware')
 
-// Adds a new post to posts
-router.post('/', addNewPost)
+// Adds a new post to posts and returns posts from db on get request
+router.route('/').get(protect, getAllPosts).post(protect, addNewPost)
 
-// Returns posts from db on get request
-router.get('/', getAllPosts)
+router.route('/:id').put(protect, updatePost)
 
 module.exports = router

@@ -11,6 +11,7 @@ const postSchema = new Schema(
     comments: {
         type: Array
     },
+    user: String,
     },
     { timestamps: true }
 )

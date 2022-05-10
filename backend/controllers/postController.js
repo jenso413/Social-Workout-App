@@ -1,11 +1,11 @@
 const Post = require('../models/Posts');
+const User = require('../models/User')
 
 // Adds new post
 async function addNewPost(req, res) {
     const newPost = await new Post({
         content : req.body.content,
-        likes : req.body.likes,
-        comments : req.body.comments
+        user: req.user.id
     })
 
     try {
@@ -19,13 +19,34 @@ async function addNewPost(req, res) {
 // Returns all posts
 async function getAllPosts(req, res) {
     // Return array of post objects
-    let posts = Post.find({}, (err, posts) => {
-        if(err) {
-            console.log(err)
-        } else {
-            res.json(posts)
-        }
-    })
+    const posts = await Post.find({ user: req.user.id })
+
+    res.status(200).json(posts)
 }
 
-module.exports = { addNewPost, getAllPosts }
+const updatePost = async (req, res) => {
+    const post = await Post.findById(req.params.id)
+
+    if (!post) {
+        return res.status(400).json('no post found')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    if (!user) {
+        return res.status(401).json('User not found')
+    }
+
+    // Check logged in user matches post body user
+    if (post.user.toString() !== user.id) {
+        return res.status(401).json('User not authorized')
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+    })
+
+    res.status(200).json(updatedPost)
+}
+
+module.exports = { addNewPost, getAllPosts, updatePost }
