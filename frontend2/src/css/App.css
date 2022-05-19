@@ -32,11 +32,17 @@
     font-weight: 500;
 }
 
-.sign-up-btn {
+.btn-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.auth-btn {
     padding: 20px 100px;
     color: white;
     background: black;
     border-style: none;
     border-radius: 20px;
     font-size: 36px;
+    cursor: pointer;
 }
