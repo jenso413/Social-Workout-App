@@ -6,9 +6,10 @@ const bcrypt = require('bcryptjs')
 // @route   POST /api/auth/register
 // @access  Public
 const registerUser = async (req, res) => {
-    const { name, email, password } = req.body
+    console.log(req.body)
+    const { username, email, password } = req.body
 
-    if(!name || !email || !password) {
+    if(!username || !email || !password ) {
         return res.status(400).json('Please add all fields')
     }
 
@@ -23,10 +24,8 @@ const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    console.log(hashedPassword)
-
-    const user = await new User({
-        username : name,
+    const user = await User.create({
+        username : username,
         email : email,
         password : hashedPassword
     })
@@ -42,12 +41,12 @@ const registerUser = async (req, res) => {
         return res.status(400).json('Invalid user data')
     }
 
-    try {
-        const newUser = await user.save();
-        res.status(200).json(newUser)
-    } catch(err) {
-        console.log(err)
-    }
+    // try {
+    //     const newUser = await user.save();
+    //     res.status(200).json(newUser)
+    // } catch(err) {
+    //     console.log(err)
+    // }
 
     // res.json({message: 'Register User'})
 }
@@ -56,10 +55,12 @@ const registerUser = async (req, res) => {
 // @route   POST /api/auth/login
 // @access  Public
 const loginUser = async (req, res) => {
-    const {email, password} = req.body
+    
+    console.log(req.body)
+    const {username, password} = req.body
 
-    // Check for user email
-    const user = await User.findOne({email})
+    // Check for username in DB
+    const user = await User.findOne({username})
 
     // Doesn't work if password isn't hashed
     if(user && (await bcrypt.compare(password, user.password))) {
@@ -74,7 +75,7 @@ const loginUser = async (req, res) => {
     }
 }
 
-// @desc    Get user info
+// @desc    Get user by ID
 // @route   GET /api/auth/me
 // @access  Private
 const getMe = async (req, res) => {
