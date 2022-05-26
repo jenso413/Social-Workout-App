@@ -5,8 +5,10 @@ const User = require('../models/User')
 async function addNewPost(req, res) {
     const newPost = await new Post({
         content : req.body.content,
-        user: req.user.id
+        user: req.user.id,
+        username: req.user.username
     })
+    
 
     try {
         const post = await newPost.save()

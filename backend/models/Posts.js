@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const postSchema = new Schema(
     {
+    username: String,
     content : String,
     likes: {
         type: Number,
