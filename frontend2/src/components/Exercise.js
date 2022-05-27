@@ -17,18 +17,5 @@ export default function Exercise() {
                 </div>
             </td>
         </tr>
-        // <div className='set'>
-        //     <h3>Bench Press</h3>
-        //     <div className='weight'>
-        //         <input className='span-three'></input>
-        //     </div>
-        //     <div className='reps'>
-        //         <input></input>
-        //         <input></input>
-        //         <input></input>
-        //         <input></input>
-        //         <input></input>
-        //     </div>
-        // </div>
     )
 }

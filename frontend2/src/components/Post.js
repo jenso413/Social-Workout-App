@@ -4,16 +4,18 @@ import { Avatar, IconButton } from '@mui/material'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import InsertCommentIcon from '@mui/icons-material/InsertComment';
 import IosShareIcon from '@mui/icons-material/IosShare';
+import { useSelector } from 'react-redux';
 // import { ThumbUpIcon, InsertCommentIcon, IosShareIcon } from '@mui/icons-material'
 
-export default function Post({ textContent }) {
+export default function Post({ textContent, date, username }) {
+
     return (
         <div className='post__card'>
             <div className='post__top'>
                 <Avatar />
                 <div className='post__top--text'>
-                    <span>Michael</span>
-                    <p>Jan 10, 2022</p>
+                    <span>{username}</span>
+                    <p>{date}</p>
                 </div>
                 <h3>Community Info</h3>
             </div>

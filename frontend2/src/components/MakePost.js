@@ -2,7 +2,7 @@ import React from 'react'
 import { Avatar, IconButton } from '@mui/material'
 import '../css/makepost.css'
 
-export default function MakePost({ handlePost, handleInput, postInfo }) {
+export default function MakePost({ handleClick, handleInput, postInfo }) {
 
     return (
         <div className='make__post'>
@@ -12,7 +12,7 @@ export default function MakePost({ handlePost, handleInput, postInfo }) {
                 <input placeholder='Add image' />
             </div>
             <div className='make__post--bottom'>
-                <IconButton onClick={handlePost}>Post</IconButton>
+                <IconButton onClick={handleClick}>Post</IconButton>
             </div>
         </div>
     )

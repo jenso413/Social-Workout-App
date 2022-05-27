@@ -1,7 +1,6 @@
 import React from 'react'
 import '../css/userAuth.css'
 import CloseIcon from '@mui/icons-material/Close';
-import UserAuth from './UserAuth'
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -57,6 +56,10 @@ export default function SignUp() {
     useEffect(() => {
         if (isError) {
         toast.error(message)
+        }
+
+        if (user) {
+            navigate('/main')
         }
 
         // if(isSuccess || user) {

@@ -5,13 +5,13 @@ import FriendList from './FriendList';
 import Community from './Community';
 import MainFeed from './MainFeed';
 import { useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 function Social() {
 
-  // Import user info from login/app state
-  const location = useLocation()
-  const { userInfo } = location.state
-  console.log(userInfo)
+  const { user } = useSelector((state) => state.auth)
+
+  console.log (user)
 
   return (
     <div className="App">
