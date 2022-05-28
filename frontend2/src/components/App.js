@@ -3,8 +3,6 @@ import '../css/App.css';
 import { Link } from "react-router-dom";
 import Logo from '../assets/default-monochrome-black.svg'
 
-// <button><Link to='/mainfeed'>dick</Link></button>
-
 function App() {
 
   return (

@@ -1,55 +1,51 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import '../css/logger.css'
-import AddWorkout from './AddWorkout'
 import Exercise from './Exercise'
+import LoggerHeader from './LoggerHeader'
+import Navbar from './Navbar'
+import FriendList from './FriendList'
+import AddWorkout from './AddWorkout'
 
 export default function Logger() {
 
     const [addWorkout, setAddWorkout] = useState(false)
-    
-    function onClick() {
+
+    function displayAddWorkout() {
         setAddWorkout(true)
     }
 
+    function displayLogger() {
+        setAddWorkout(false)
+    }
+
     return (
-        // Have an example, starter workout
-        // Everyone is part of it at first
-        // Called 'IRON Workout'
-        <div className='container'>
-            {addWorkout ? (<AddWorkout />) : 
-        
-            (<div className='default'>
-                <h1>Wendler's 5/3/1</h1>
-                <button onClick={onClick}>Add workout</button>
-                <table className='exercise-table'>
-                    <tbody>
-                        <tr>
-                            <th>Exercise</th>
-                            <th>Weight</th>
-                            <th>Reps</th>
-                        </tr>
-                        <Exercise />
-                        <Exercise />
-                        <Exercise />
-                        <Exercise />
-                        <Exercise />
-                        <Exercise />
-                        <Exercise />
-                    </tbody>
-                </table>
-            </div>)}
-            
+        <div className='main'>
+            <Navbar />
+            <div className='body'>
+                <FriendList />
+                <div className='container'>
+                    <LoggerHeader displayAddWorkout={displayAddWorkout} displayLogger={displayLogger}/>
+
+                    {addWorkout ? (<AddWorkout />): 
+
+                    (<table className='exercise-table'>
+                        <tbody>
+                            <tr>
+                                <th>Exercise</th>
+                                <th>Weight</th>
+                                <th>Reps</th>
+                            </tr>
+                            <Exercise />
+                            <Exercise />
+                            <Exercise />
+                            <Exercise />
+                            <Exercise />
+                            <Exercise />
+                            <Exercise />
+                        </tbody>
+                    </table>)}
+                </div>
+            </div>
         </div>
-        // <div className='logger'>
-        //     <h1>Wendler's 5/3/1</h1>
-        //     <div className='grid'>
-        //         <Set />
-        //         <Set />
-        //         <Set />
-        //         <Set />
-        //         <Set />
-        //         <Set />
-        //     </div>
-        // </div>
     )
 }
