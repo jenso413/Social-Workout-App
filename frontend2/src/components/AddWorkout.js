@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import NewExercise from "./NewExercise";
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch, useSelector } from "react-redux";
 import { addWorkoutName, reset } from "../redux/workoutSlice";
-import { addWorkout } from "../redux/programSlice";
+import programSlice, { addWorkout } from "../redux/programSlice";
 import CheckIcon from '@mui/icons-material/Check';
 
 
@@ -11,6 +11,13 @@ export default function AddWorkout() {
 
     const dispatch = useDispatch()
     const fullWorkout = useSelector(state => state.workout)
+    const programName = useSelector(state => state.program.name)
+
+    const newExercise = {
+        exerciseName: '',
+        setCount: '',
+        repRange: ''
+    }
 
     const [keyId, setKeyId] = useState(0)
     const [workoutName, setWorkoutName] = useState('')
@@ -20,10 +27,11 @@ export default function AddWorkout() {
     const workoutInfo = useSelector(state => state.workout)
     
     function addExercise() {
+        console.log('hello')
         setKeyId(prevKey => prevKey + 1)
         setExerciseList(prevList => [
             ...prevList,
-            <NewExercise key={keyId}/>
+            newExercise
         ])
     }
 
@@ -31,14 +39,41 @@ export default function AddWorkout() {
 
         dispatch(addWorkout(fullWorkout))
         
-        dispatch(reset())
-    
+        // dispatch(reset())
+
+        // addToServer()
+    }
+
+    function addToServer() {
+
+        // Add workout to DB
+        fetch('/api/workouts/add-workout', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ workoutName, programName, exerciseList })
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+
+
+        // Populate Program with workout
         
     }
     
     function handleName(e) {
         setWorkoutName(e.target.value)
     }
+
+    // PRETTY SIMPLE CHANGE TO AN INSANELY COMPLEX PROBLEM, TOOK ME SO LONG TO SOLVE LETS GOOO
+    function onChange(e, index) {
+        setExerciseList(prevState => {
+            return prevState.map(exercise => exercise == prevState[index] ? {...exercise, [e.target.name] : e.target.value } : exercise)
+        })
+    }
+
+    // console.log(exerciseList.forEach(exercise => ))
 
     return (
         <>
@@ -53,7 +88,19 @@ export default function AddWorkout() {
                         <th>Lock</th>
                     </tr>
                     {/* <NewExercise key={keyId} id={keyId} exerciseInfo={exerciseInfo} handleExerciseInfo={handleExerciseInfo}/> */}
-                    {exerciseList}
+                    {exerciseList.map((exercise, index) => {
+                        return <tr key={index}>
+                            <td>
+                                <input value={exercise.exerciseName} name='exerciseName' onChange={e => onChange(e, index)} placeholder='Bench Press'></input>
+                            </td>
+                            <td>
+                                <input value={exercise.setCount} name='setCount' onChange={e => onChange(e, index)} placeholder='3'></input>
+                            </td>
+                            <td >
+                                <input value={exercise.repRange} name='repRange' onChange={e => onChange(e, index)} placeholder='8-12'></input>
+                            </td>
+                        </tr>
+                    })}
                 </tbody>
             </table>
             <AddIcon onClick={addExercise} />

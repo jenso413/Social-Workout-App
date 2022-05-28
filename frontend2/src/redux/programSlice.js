@@ -11,9 +11,12 @@ const programSlice = createSlice({
     reducers: {
         addWorkout: (state, action) => {
             state.workouts.push(action.payload)
+        },
+        addProgram: (state, action) => {
+            state.name = action.payload
         }
     }
 })
 
 export default programSlice.reducer
-export const { addWorkout } = programSlice.actions
+export const { addWorkout, addProgram } = programSlice.actions
