@@ -67,15 +67,12 @@ export default function AddWorkout() {
 
     return (
         <>
-            <input placeholder='Enter workout name' onChange={handleName} value={workoutName}></input>
-            <CheckIcon onClick={() => dispatch(addWorkoutName(workoutName))}/>
             <table className='exercise-table'>
                 <tbody>
                     <tr>
                         <th>Exercise</th>
                         <th># of Sets</th>
                         <th>Rep Range</th>
-                        <th>Lock</th>
                     </tr>
                     {/* <NewExercise key={keyId} id={keyId} exerciseInfo={exerciseInfo} handleExerciseInfo={handleExerciseInfo}/> */}
                     {exerciseList.map((exercise, index) => {

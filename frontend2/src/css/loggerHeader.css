@@ -14,7 +14,7 @@
 
 .select {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     cursor: pointer;
 }
@@ -64,8 +64,14 @@
     background: none;
     color: inherit;
     font-family: inherit;
-    text-align: left;
-    font-size: inherit;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    width: 60%;
+}
+
+.new-workout-input:focus {
+    outline: none;
 }
 
 .dropdown-menu li:hover {
@@ -79,8 +85,4 @@
 .menu-open {
     display: block;
     opacity: 1;
-}
-
-.test {
-    background: red;
 }

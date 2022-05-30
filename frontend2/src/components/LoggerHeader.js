@@ -23,21 +23,14 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger, workout
     }
 
     function handleAddWorkoutClick() {
-
-        // Clear previous tex
-
-        // Display an input as the value for the h1
-        // displayedOption.current.innerHTML = some kind of input
-        // toggle addingWorkout state
-
-        // setState is async, could be a problem? probably not
         
-        // displayOption(e)
-        // displayAddWorkout()
+        
     
         setAddingWorkout(true)
 
         toggleMenu()
+
+        displayAddWorkout()
         
     }
 
@@ -47,7 +40,7 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger, workout
             <div className='dropdown'>
                 <div className={`select ${toggleDropdown && 'select-clicked'}`}>
                     {addingWorkout ? 
-                        (<input className='new-workout-input' value={workoutName} onChange={(e) => setWorkoutName(e.target.value)} placeholder={'New Workout'} />)
+                        (<input className='new-workout-input' value={workoutName} onChange={(e) => setWorkoutName(e.target.value)} placeholder='New Workout' autoFocus />)
                         : 
                         (<h1 className='selected' ref={displayedOption}></h1>)}
                     

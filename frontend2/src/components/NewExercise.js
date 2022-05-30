@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CheckIcon from '@mui/icons-material/Check';
 import { useDispatch, useSelector } from "react-redux";
 import { addExercise } from "../redux/workoutSlice";
 
@@ -30,9 +29,6 @@ export default function NewExercise() {
             </td>
             <td >
                 <input value={exerciseInfo.repRange} name='repRange' onChange={handleChange} placeholder='8-12'></input>
-            </td>
-            <td >
-                <CheckIcon onClick={() => dispatch(addExercise(exerciseInfo))}/>
             </td>
         </tr>
     )

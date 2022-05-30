@@ -8,7 +8,7 @@ import AddWorkout from './AddWorkout'
 
 export default function Logger() {
 
-    const [addWorkout, setAddWorkout] = useState(false)
+    const [addWorkout, setAddWorkout] = useState(true)
     const [workoutName, setWorkoutName] = useState('New Workout')
 
     function displayAddWorkout() {
