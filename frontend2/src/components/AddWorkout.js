@@ -1,15 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import NewExercise from "./NewExercise";
+import React, { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
-import { useDispatch, useSelector } from "react-redux";
-import { addWorkoutName, reset } from "../redux/workoutSlice";
-import programSlice, { addWorkout } from "../redux/programSlice";
-import CheckIcon from '@mui/icons-material/Check';
+import { useSelector } from "react-redux";
 
 
 export default function AddWorkout() {
 
-    const dispatch = useDispatch()
     const programName = useSelector(state => state.program.name)
 
     const newExercise = {
@@ -18,7 +13,9 @@ export default function AddWorkout() {
         repRange: ''
     }
 
+    // Is this needed?
     const [workoutName, setWorkoutName] = useState('')
+
     const [exerciseList, setExerciseList] = useState([])
     
     function addExercise() {

@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addExercise } from "../redux/workoutSlice";
 
 export default function NewExercise() {
-
-    const dispatch = useDispatch()
 
     const [exerciseInfo, setExerciseInfo] = useState({
         exerciseName: '',

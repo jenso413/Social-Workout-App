@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState } from 'react'
 import '../css/logger.css'
 import Exercise from './Exercise'
 import LoggerHeader from './LoggerHeader'

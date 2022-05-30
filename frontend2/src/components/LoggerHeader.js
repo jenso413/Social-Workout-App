@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import '../css/loggerHeader.css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuOption from './MenuOption'
 
-export default function LoggerHeader({ displayAddWorkout, displayLogger, workoutName, handleWorkoutNameChange, setWorkoutName }) {
+export default function LoggerHeader({ displayAddWorkout, displayLogger, workoutName, setWorkoutName }) {
 
     const [toggleDropdown, setToggleDropdown] = useState(false)
     const [addingWorkout, setAddingWorkout] = useState(true)
@@ -12,6 +12,7 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger, workout
     function displayOption(e) {
         
         setAddingWorkout(false)
+        // Otherwise the DOM doesn't update in time for there to be an innerText value for the nonexistent h1
         setTimeout(() => {
             displayedOption.current.innerText = e.target.innerText
         }, 0);
@@ -24,8 +25,6 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger, workout
 
     function handleAddWorkoutClick() {
         
-        
-    
         setAddingWorkout(true)
 
         toggleMenu()
