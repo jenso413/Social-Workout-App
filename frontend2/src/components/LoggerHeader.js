@@ -3,7 +3,7 @@ import '../css/loggerHeader.css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuOption from './MenuOption'
 
-export default function LoggerHeader({ displayAddWorkout, displayLogger, workoutName, setWorkoutName }) {
+export default function LoggerHeader({ displayAddWorkout, displayLogger, workoutName, setWorkoutName, programName, workoutNameList }) {
 
     const [toggleDropdown, setToggleDropdown] = useState(false)
     const [addingWorkout, setAddingWorkout] = useState(true)
@@ -33,9 +33,15 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger, workout
         
     }
 
+    console.log(workoutNameList)
+    const menuOptions = workoutNameList.map((workout, index) => {
+        return <MenuOption key={index} name={workout} displayOption={displayOption} toggleMenu={toggleMenu} displayLogger={displayLogger}/>
+    })
+
 
     return (
         <div className='loggerHeader'>
+            <h1 className='community-name'>{programName}</h1>
             <div className='dropdown'>
                 <div className={`select ${toggleDropdown && 'select-clicked'}`}>
                     {addingWorkout ? 
@@ -43,13 +49,11 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger, workout
                         : 
                         (<h1 className='selected' ref={displayedOption}></h1>)}
                     
-                    <ArrowDropDownIcon className={`caret ${toggleDropdown && 'caret-rotate'}`} style={{fontSize: 40}} onClick={() => setToggleDropdown(prevState => !prevState)}/>
+                    {/* <ArrowDropDownIcon className={`caret ${toggleDropdown && 'caret-rotate'}`} style={{fontSize: 40}} onClick={() => setToggleDropdown(prevState => !prevState)}/> */}
+                    <div className={`caret ${toggleDropdown && 'caret-rotate'}`} style={{fontSize: 40}} onClick={() => setToggleDropdown(prevState => !prevState)}></div>
                 </div>
-                <ul className={`dropdown-menu ${toggleDropdown && 'menu-open'}`}>
-                    {/* <MenuOptions className='menu-option' name='NSuns' onClick={() => setToggleDropdown(prevState => !prevState)}/> */}
-                    <MenuOption name="Michael's Workout" displayOption={displayOption} toggleMenu={toggleMenu} displayLogger={displayLogger}/>
-                    <MenuOption name="Wendler's 5/3/1" displayOption={displayOption} toggleMenu={toggleMenu} displayLogger={displayLogger}/>
-                    <MenuOption name="NSuns" displayOption={displayOption} toggleMenu={toggleMenu} displayLogger={displayLogger}/>
+                <ul className={`dropdown-menu ${toggleDropdown && 'menu-open'}`}>                    
+                    {menuOptions}
                     <li className='menu-option' onClick={handleAddWorkoutClick}>New Workout</li>
                 </ul>
             </div>

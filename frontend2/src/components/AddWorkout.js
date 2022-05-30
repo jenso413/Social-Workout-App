@@ -3,18 +3,13 @@ import AddIcon from '@mui/icons-material/Add';
 import { useSelector } from "react-redux";
 
 
-export default function AddWorkout() {
-
-    const programName = useSelector(state => state.program.name)
+export default function AddWorkout({ workoutName, programName }) {
 
     const newExercise = {
         exerciseName: '',
         setCount: '',
         repRange: ''
     }
-
-    // Is this needed?
-    const [workoutName, setWorkoutName] = useState('')
 
     const [exerciseList, setExerciseList] = useState([])
     
@@ -49,10 +44,6 @@ export default function AddWorkout() {
         })
             .then(res => res.json())
             .then(data => console.log(data))
-    }
-    
-    function handleName(e) {
-        setWorkoutName(e.target.value)
     }
 
     // PRETTY SIMPLE CHANGE TO AN INSANELY COMPLEX PROBLEM, TOOK ME SO LONG TO SOLVE LETS GOOO

@@ -5,10 +5,11 @@
 }
 
 .caret {
-    display: block;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 6px solid #fff;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid #000;
     transition: 0.3s;
 }
 
@@ -85,4 +86,8 @@
 .menu-open {
     display: block;
     opacity: 1;
+}
+
+.community-name {
+    text-align: center;
 }

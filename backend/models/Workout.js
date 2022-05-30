@@ -22,7 +22,10 @@ const workoutSchema = new Schema(
 )
 
 const programSchema = new Schema({
-    programName: String,
+    programName: {
+        type: String,
+        unique: true
+    },
     pictureUrl: String,
     favColor: String,
     workouts: [
