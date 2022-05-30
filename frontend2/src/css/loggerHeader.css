@@ -57,6 +57,17 @@
     color: green;
 }
 
+.new-workout-input {
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
+    font-size: inherit;
+}
+
 .dropdown-menu li:hover {
     background: #2a2d35;
 }
@@ -68,4 +79,8 @@
 .menu-open {
     display: block;
     opacity: 1;
+}
+
+.test {
+    background: red;
 }

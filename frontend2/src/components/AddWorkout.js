@@ -10,7 +10,6 @@ import CheckIcon from '@mui/icons-material/Check';
 export default function AddWorkout() {
 
     const dispatch = useDispatch()
-    const fullWorkout = useSelector(state => state.workout)
     const programName = useSelector(state => state.program.name)
 
     const newExercise = {
@@ -19,16 +18,10 @@ export default function AddWorkout() {
         repRange: ''
     }
 
-    const [keyId, setKeyId] = useState(0)
     const [workoutName, setWorkoutName] = useState('')
     const [exerciseList, setExerciseList] = useState([])
-
-    // gives workout name and info
-    const workoutInfo = useSelector(state => state.workout)
     
     function addExercise() {
-        console.log('hello')
-        setKeyId(prevKey => prevKey + 1)
         setExerciseList(prevList => [
             ...prevList,
             newExercise
@@ -37,29 +30,28 @@ export default function AddWorkout() {
 
     function submitWorkout() {
 
-        dispatch(addWorkout(fullWorkout))
-        
-        // dispatch(reset())
+        addToServer()
 
-        // addToServer()
+        setExerciseList([])
     }
 
     function addToServer() {
 
-        // Add workout to DB
+        // Adds workout to DB
+        // Automatically adds workout reference to program that is used with programName
         fetch('/api/workouts/add-workout', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify({ workoutName, programName, exerciseList })
+            body: JSON.stringify({
+                workoutName,
+                programName,
+                exerciseList,
+            })
         })
             .then(res => res.json())
             .then(data => console.log(data))
-
-
-        // Populate Program with workout
-        
     }
     
     function handleName(e) {
@@ -72,8 +64,6 @@ export default function AddWorkout() {
             return prevState.map(exercise => exercise == prevState[index] ? {...exercise, [e.target.name] : e.target.value } : exercise)
         })
     }
-
-    // console.log(exerciseList.forEach(exercise => ))
 
     return (
         <>

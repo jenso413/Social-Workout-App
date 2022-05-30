@@ -1,31 +1,40 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const workoutSchema = new Schema(
-    {
-        programName: String,
-        exercises: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Exercise'
-            }
-        ]
-    }
-)
-
 const exerciseSchema = new Schema(
     {
-        name: String,
+        exerciseName: String,
         setCount: {
-            type: Number,
-            default: 3
+            type: String,
         },
-        weight: {
-            type: Number,
-            default: 0
+        repRange: {
+            type: String,
         }
     }
 )
 
+const workoutSchema = new Schema(
+    {
+        workoutName: String,
+        programName: String,
+        exercises: [exerciseSchema]
+    }
+)
+
+const programSchema = new Schema({
+    programName: String,
+    pictureUrl: String,
+    favColor: String,
+    workouts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Workout'
+        }
+    ]
+})
+
+const Program = mongoose.model('Program', programSchema)
 const Workout = mongoose.model('Workout', workoutSchema)
 const Exercise = mongoose.model('Exercise', exerciseSchema)
+
+module.exports = { Program, Workout, Exercise }

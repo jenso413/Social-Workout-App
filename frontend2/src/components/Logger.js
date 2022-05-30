@@ -9,6 +9,7 @@ import AddWorkout from './AddWorkout'
 export default function Logger() {
 
     const [addWorkout, setAddWorkout] = useState(false)
+    const [workoutName, setWorkoutName] = useState('New Workout')
 
     function displayAddWorkout() {
         setAddWorkout(true)
@@ -18,13 +19,23 @@ export default function Logger() {
         setAddWorkout(false)
     }
 
+    function handleWorkoutNameChange(e) {
+        console.log(e)
+    }
+
     return (
         <div className='main'>
             <Navbar />
             <div className='body'>
                 <FriendList />
                 <div className='container'>
-                    <LoggerHeader displayAddWorkout={displayAddWorkout} displayLogger={displayLogger}/>
+                    <LoggerHeader 
+                        displayAddWorkout={displayAddWorkout}
+                        displayLogger={displayLogger}
+                        workoutName={workoutName}
+                        handleWorkoutNameChange={handleWorkoutNameChange}
+                        setWorkoutName={setWorkoutName}
+                    />
 
                     {addWorkout ? (<AddWorkout />): 
 

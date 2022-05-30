@@ -16,6 +16,7 @@ app.use(morgan('common'))
 
 app.use('/api/posts', require('./routes/postRoutes'))
 app.use('/api/auth', require('./routes/userRoutes'))
+app.use('/api/workouts', require('./routes/workoutRoutes'))
 
 const PORT = process.env.PORT || 3001;
 

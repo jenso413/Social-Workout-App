@@ -3,20 +3,19 @@ import '../css/loggerHeader.css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuOption from './MenuOption'
 
-export default function LoggerHeader({ displayAddWorkout, displayLogger }) {
+export default function LoggerHeader({ displayAddWorkout, displayLogger, workoutName, handleWorkoutNameChange, setWorkoutName }) {
 
     const [toggleDropdown, setToggleDropdown] = useState(false)
+    const [addingWorkout, setAddingWorkout] = useState(true)
     const displayedOption = useRef()
-
-    useEffect(() => {
-        console.log(displayedOption)
-    }, [])
     
-
     function displayOption(e) {
-        console.log(e.target.innerText)
-        console.log(displayedOption.current.innerText)
-        displayedOption.current.innerText = e.target.innerText
+        
+        setAddingWorkout(false)
+        setTimeout(() => {
+            displayedOption.current.innerText = e.target.innerText
+        }, 0);
+        
     }
 
     function toggleMenu() {
@@ -24,15 +23,34 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger }) {
     }
 
     function handleAddWorkoutClick() {
-        displayAddWorkout()
+
+        // Clear previous tex
+
+        // Display an input as the value for the h1
+        // displayedOption.current.innerHTML = some kind of input
+        // toggle addingWorkout state
+
+        // setState is async, could be a problem? probably not
+        
+        // displayOption(e)
+        // displayAddWorkout()
+    
+        setAddingWorkout(true)
+
         toggleMenu()
+        
     }
+
 
     return (
         <div className='loggerHeader'>
             <div className='dropdown'>
                 <div className={`select ${toggleDropdown && 'select-clicked'}`}>
-                    <h1 className='selected' ref={displayedOption}>Wendler's 5/3/1</h1>
+                    {addingWorkout ? 
+                        (<input className='new-workout-input' value={workoutName} onChange={(e) => setWorkoutName(e.target.value)} placeholder={'New Workout'} />)
+                        : 
+                        (<h1 className='selected' ref={displayedOption}></h1>)}
+                    
                     <ArrowDropDownIcon className={`caret ${toggleDropdown && 'caret-rotate'}`} style={{fontSize: 40}} onClick={() => setToggleDropdown(prevState => !prevState)}/>
                 </div>
                 <ul className={`dropdown-menu ${toggleDropdown && 'menu-open'}`}>
@@ -40,12 +58,14 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger }) {
                     <MenuOption name="Michael's Workout" displayOption={displayOption} toggleMenu={toggleMenu} displayLogger={displayLogger}/>
                     <MenuOption name="Wendler's 5/3/1" displayOption={displayOption} toggleMenu={toggleMenu} displayLogger={displayLogger}/>
                     <MenuOption name="NSuns" displayOption={displayOption} toggleMenu={toggleMenu} displayLogger={displayLogger}/>
-                    <li className='menu-option' onClick={handleAddWorkoutClick}>Add workout</li>
+                    <li className='menu-option' onClick={handleAddWorkoutClick}>New Workout</li>
                 </ul>
             </div>
         </div>
     )
 }
+
+//<input value={workoutName} onChange={handleWorkoutNameChange}/> 
 
 // Have an example, starter workout
         // Everyone is part of it at first
