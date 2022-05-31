@@ -3,7 +3,7 @@ import '../css/loggerHeader.css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuOption from './MenuOption'
 
-export default function LoggerHeader({ displayAddWorkout, displayLogger, workoutName, setWorkoutName, programName, workoutNameList }) {
+export default function LoggerHeader({ displayAddWorkout, displayLogger, workoutName, setWorkoutName, programName, workoutNameList, dropdownClick }) {
 
     const [toggleDropdown, setToggleDropdown] = useState(false)
     const [addingWorkout, setAddingWorkout] = useState(true)
@@ -35,7 +35,7 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger, workout
 
     console.log(workoutNameList)
     const menuOptions = workoutNameList.map((workout, index) => {
-        return <MenuOption key={index} name={workout} displayOption={displayOption} toggleMenu={toggleMenu} displayLogger={displayLogger}/>
+        return <MenuOption key={index} name={workout} displayOption={displayOption} toggleMenu={toggleMenu} displayLogger={displayLogger} dropdownClick={dropdownClick}/>
     })
 
 

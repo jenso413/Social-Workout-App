@@ -66,13 +66,13 @@ export default function AddWorkout({ workoutName, programName }) {
                     {exerciseList.map((exercise, index) => {
                         return <tr key={index}>
                             <td>
-                                <input value={exercise.exerciseName} name='exerciseName' onChange={e => onChange(e, index)} placeholder='Bench Press'></input>
+                                <input value={exercise.exerciseName} name='exerciseName' onChange={e => onChange(e, index)} placeholder='Bench Press' required></input>
                             </td>
                             <td>
-                                <input value={exercise.setCount} name='setCount' onChange={e => onChange(e, index)} placeholder='3'></input>
+                                <input type='number' min='1' max='10' value={exercise.setCount} name='setCount' onChange={e => onChange(e, index)} placeholder='3' required></input>
                             </td>
                             <td >
-                                <input value={exercise.repRange} name='repRange' onChange={e => onChange(e, index)} placeholder='8-12'></input>
+                                <input value={exercise.repRange} name='repRange' onChange={e => onChange(e, index)} placeholder='8-12' required></input>
                             </td>
                         </tr>
                     })}

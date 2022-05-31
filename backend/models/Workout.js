@@ -5,7 +5,7 @@ const exerciseSchema = new Schema(
     {
         exerciseName: String,
         setCount: {
-            type: String,
+            type: Number,
         },
         repRange: {
             type: String,

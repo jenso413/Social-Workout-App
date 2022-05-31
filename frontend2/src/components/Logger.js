@@ -5,13 +5,17 @@ import LoggerHeader from './LoggerHeader'
 import Navbar from './Navbar'
 import FriendList from './FriendList'
 import AddWorkout from './AddWorkout'
+import WorkoutTracker from './WorkoutTracker'
 
 export default function Logger() {
 
-    const [addWorkout, setAddWorkout] = useState(false)
+    const [addWorkout, setAddWorkout] = useState(true)
     const [workoutName, setWorkoutName] = useState('New Workout')
     const [programName, setProgramName] = useState('Michael')
     const [workoutNameList, setWorkoutNameList] = useState([])
+    const [programData, setProgramData] = useState({})
+
+    const [workout, setWorkout] = useState({})
 
     function displayAddWorkout() {
         setAddWorkout(true)
@@ -33,11 +37,29 @@ export default function Logger() {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                setProgramName(data.programName)
+                setProgramData(data)
+                setProgramName(data.programName) 
                 // Set into redux state? Or maybe just normal state
                 data.workouts.forEach(workout => setWorkoutNameList(prevList => [...prevList, workout.workoutName]))
             })
     }, [])
+
+    console.log(programData)
+
+    // If the click in loggerHeader matches the workout name, display workout data
+    function dropdownClick(e) {
+        console.log(e.target.innerText)
+
+        const workouts = programData.workouts
+
+        for (let workout of workouts) {
+            if (workout.workoutName == e.target.innerText) {
+                setWorkout(workout)
+            }
+        }
+
+        setAddWorkout(false)
+    }
 
     return (
         <div className='main'>
@@ -53,26 +75,12 @@ export default function Logger() {
                         setWorkoutName={setWorkoutName}
                         programName = {programName}
                         workoutNameList={workoutNameList}
+                        dropdownClick={dropdownClick}
                     />
 
                     {addWorkout ? (<AddWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} programName={programName}/>): 
 
-                    (<table className='exercise-table'>
-                        <tbody>
-                            <tr>
-                                <th>Exercise</th>
-                                <th>Weight</th>
-                                <th>Reps</th>
-                            </tr>
-                            <Exercise />
-                            <Exercise />
-                            <Exercise />
-                            <Exercise />
-                            <Exercise />
-                            <Exercise />
-                            <Exercise />
-                        </tbody>
-                    </table>)}
+                    (<WorkoutTracker workout={workout}/>)}
                 </div>
             </div>
         </div>
