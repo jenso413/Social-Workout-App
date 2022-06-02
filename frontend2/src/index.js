@@ -5,6 +5,7 @@ import App from './components/App';
 import Social from './components/Social'
 import Fitness from './components/Fitness'
 import UserAuth from './components/UserAuth'
+import Communities from './components/Communities'
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
@@ -24,7 +25,7 @@ root.render(
         <Route path='fitness' element={<Fitness />} />
         <Route path='main' element={<App />} />
         <Route path='workout' element={<Logger />} />
-        {/* <Route path='community' element={<CreateCommunity />} /> */}
+        <Route path='communities' element={<Communities />} />
       </Routes>
     </BrowserRouter>
     <ToastContainer />

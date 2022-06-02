@@ -11,7 +11,7 @@ function JoinCommunity() {
     const initialState = {
         programName : '',
         pictureUrl : '',
-        favColor: ''
+        favColor: '#ffffff'
     }
 
     const [isActive, setIsActive] = useState(false)
@@ -29,6 +29,7 @@ function JoinCommunity() {
     function handleSubmit() {
 
         dispatch(addProgram(programName))
+        console.log(programInfo)
 
         fetch('/api/workouts/program', {
             method: 'POST',
@@ -44,14 +45,14 @@ function JoinCommunity() {
     return (
         <div>
             <h2>You're not part of a community!</h2>
-            <button>Join Now</button>
+            <Link to='/communities'><button>Join Now</button></Link>
             <button onClick={() => setIsActive(prevState => !prevState)} >Create your own!</button>
 
             <div className={`modal-bg ${isActive ? 'bg-active' : ''}`}>
                 <form>
-                    <input name='programName' value={programName} onChange={handleChange} placeholder='Pick a name for your community'></input>
-                    <input name='pictureUrl' value={pictureUrl} onChange={handleChange} placeholder='Upload a picture'></input>
-                    <input name='favColor' value={favColor} onChange={handleChange} placeholder='Pick your favorite colors'></input>
+                    <input name='programName' value={programName} onChange={handleChange} placeholder='Pick a name for your community' required></input>
+                    <input name='pictureUrl' type='file' accept="image/*" value={pictureUrl} onChange={handleChange} placeholder='Upload a picture'></input>
+                    <input name='favColor' type='color' value={favColor} onChange={handleChange} placeholder='Pick your favorite color'></input>
                     <Link to='/workout'><button onClick={handleSubmit}>Submit</button></Link>
                 </form>
             </div>

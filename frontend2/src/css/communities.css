@@ -1,0 +1,8 @@
+.community {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.community div {
+    width: 30%;
+}

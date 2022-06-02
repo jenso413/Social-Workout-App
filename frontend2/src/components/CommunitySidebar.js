@@ -1,6 +1,6 @@
 import React from 'react'
 import Group from './Group'
-import '../css/community.css'
+import '../css/communitySidebar.css'
 
 export default function Community() {
     return (

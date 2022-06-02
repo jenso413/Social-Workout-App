@@ -90,4 +90,15 @@ async function getProgram(req, res) {
     }
 }
 
-module.exports = { addProgram, addWorkout, addExercise, getProgram }
+// GET: http://localhost:3001/api/workouts/programs
+async function getAllPrograms(req, res) {
+    const programs = await Program.find({})
+
+    if (programs) {
+        res.status(200).json(programs)
+    } else {
+        console.log('Unable to fetch programs')
+    }
+}
+
+module.exports = { addProgram, addWorkout, addExercise, getProgram, getAllPrograms }
