@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Group from './Group'
 import '../css/communities.css'
+import Navbar from './Navbar'
+import FriendList from './FriendList'
 
 export default function Community() {
 
@@ -18,12 +20,18 @@ export default function Community() {
 
     const communityElements = communities.map((community, index) => {
         const { programName, picture, favColor } = community
-        return <Group key={index} programName={programName} picture={picture} favColor={favColor} />
+        return <Group key={index} className='group' programName={programName} picture={picture} favColor={favColor} />
     })
 
     return (
-        <main className='community'>
-            {communityElements}
-        </main>
+        <div className='main'>
+            <Navbar />
+            <div className='body'>
+                <FriendList />
+                <main className='community'>
+                    {communityElements}
+                </main>
+            </div>
+        </div>
     )
 }

@@ -3,6 +3,6 @@
     flex-wrap: wrap;
 }
 
-.community div {
+.community .group {
     width: 30%;
 }

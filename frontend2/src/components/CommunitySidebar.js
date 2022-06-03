@@ -4,7 +4,7 @@ import '../css/communitySidebar.css'
 
 export default function Community() {
     return (
-        <aside className='community'>
+        <aside className='community-sidebar'>
             <Group />
             <Group />
             <Group />
