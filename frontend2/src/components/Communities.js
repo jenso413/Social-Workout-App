@@ -10,12 +10,15 @@ export default function Community() {
     useEffect(() => {
         fetch('/api/workouts/programs', {})
             .then(res => res.json())
-            .then(data => setCommunities(data))
+            .then(data => {
+                console.log(data)
+                setCommunities(data)
+            })
     }, [])
 
     const communityElements = communities.map((community, index) => {
-        const { programName, pictureUrl, favColor } = community
-        return <Group key={index} programName={programName} pictureUrl={pictureUrl} favColor={favColor} />
+        const { programName, picture, favColor } = community
+        return <Group key={index} programName={programName} picture={picture} favColor={favColor} />
     })
 
     return (

@@ -26,7 +26,9 @@ const programSchema = new Schema({
         type: String,
         unique: true
     },
-    pictureUrl: String,
+    picture: {
+        type: String,
+    },
     favColor: String,
     workouts: [
         {

@@ -1,12 +1,13 @@
 .group__card {
-    width: 85%;
+    width: 50%;
     height: 200px;
     border: 1px solid lightgray;
     margin: 2rem auto;
     position: relative;
     border-radius: 10px;
-    background: linear-gradient(0deg, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.80) 100%),
-    url('https://images.ctfassets.net/psi7gc0m4mjv/Fj5X1D8oKWzQQI999dMgs/185c41852134294e5f278feb4f3730b9/powerlifting_instructor_mobile_hero_image_2x.jpg');
+    /* background: linear-gradient(0deg, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.80) 100%),
+    url('https://images.ctfassets.net/psi7gc0m4mjv/Fj5X1D8oKWzQQI999dMgs/185c41852134294e5f278feb4f3730b9/powerlifting_instructor_mobile_hero_image_2x.jpg'); */
+    background: linear-gradient(0deg, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.80) 100%);
     background-size: cover;
     color: white;
 }

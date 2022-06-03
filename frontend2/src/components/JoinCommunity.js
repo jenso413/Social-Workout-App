@@ -10,26 +10,50 @@ function JoinCommunity() {
 
     const initialState = {
         programName : '',
-        pictureUrl : '',
+        picture : '',
         favColor: '#ffffff'
     }
 
     const [isActive, setIsActive] = useState(false)
     const [programInfo, setProgramInfo] = useState(initialState)
 
-    const { programName, pictureUrl, favColor } = programInfo
+    const { programName, picture, favColor } = programInfo
 
     function handleChange(e) {
-        setProgramInfo(prevState => ({
-            ...prevState,
-            [e.target.name] : e.target.value
-        }))
+
+        if (e.target.name === 'picture') {
+            const pictureFile = e.target.files[0]
+            base64Encode(pictureFile)
+        } else {
+            setProgramInfo(prevState => ({
+                ...prevState,
+                [e.target.name] : e.target.value
+            }))
+        }
+    }
+
+    function base64Encode(file) {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            setProgramInfo(prevState => ({
+                ...prevState,
+                'picture' : reader.result
+            }))
+        }
     }
 
     function handleSubmit() {
 
+        // const formData = new FormData()
+
+        // formData.append('programName', programName)
+        // formData.append('favColor', favColor)
+        // formData.append('picture', picture)
+
         dispatch(addProgram(programName))
-        console.log(programInfo)
+        // console.log(programInfo)
+        // console.log(formData)
 
         fetch('/api/workouts/program', {
             method: 'POST',
@@ -49,12 +73,15 @@ function JoinCommunity() {
             <button onClick={() => setIsActive(prevState => !prevState)} >Create your own!</button>
 
             <div className={`modal-bg ${isActive ? 'bg-active' : ''}`}>
-                <form>
+                <form encType='multipart/form-data'>
                     <input name='programName' value={programName} onChange={handleChange} placeholder='Pick a name for your community' required></input>
-                    <input name='pictureUrl' type='file' accept="image/*" value={pictureUrl} onChange={handleChange} placeholder='Upload a picture'></input>
+                    <input name='picture' type='file' accept="image/*" defaultValue={picture} onChange={handleChange} placeholder='Upload a picture'></input>
                     <input name='favColor' type='color' value={favColor} onChange={handleChange} placeholder='Pick your favorite color'></input>
                     <Link to='/workout'><button onClick={handleSubmit}>Submit</button></Link>
                 </form>
+                {picture && (
+                    <img src={picture} alt='chosen' />
+                )}
             </div>
         </div>
     )        

@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { addWorkout, addProgram, addExercise, getProgram, getAllPrograms } = require('../controllers/workoutController')
+const { upload } = require('../middleware/workoutMiddleware')
 
 router.route('/program').post(addProgram)
 router.route('/add-workout').post(addWorkout)

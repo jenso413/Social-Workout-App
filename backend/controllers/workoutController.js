@@ -1,11 +1,10 @@
 const { Program, Workout, Exercise } = require('../models/Workout')
 
-
 // POST: /api/workouts/program
 async function addProgram(req, res) {
 
     console.log(req.body)
-    const { programName, pictureUrl, favColor } = req.body
+    const { programName, favColor, picture } = req.body
 
     const programExists = await Program.findOne({programName})
 
@@ -15,7 +14,7 @@ async function addProgram(req, res) {
 
     const newProgram = await new Program({
         programName,
-        pictureUrl,
+        picture,
         favColor
     })
 
