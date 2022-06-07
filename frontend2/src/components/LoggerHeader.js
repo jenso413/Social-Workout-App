@@ -33,7 +33,6 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger, workout
         
     }
 
-    console.log(workoutNameList)
     const menuOptions = workoutNameList.map((workout, index) => {
         return <MenuOption key={index} name={workout} displayOption={displayOption} toggleMenu={toggleMenu} displayLogger={displayLogger} dropdownClick={dropdownClick}/>
     })

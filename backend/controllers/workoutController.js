@@ -74,13 +74,14 @@ async function addExercise(req, res) {
     }
 }
 
-// GET: http://localhost:3001/api/workouts/program/:name
+// GET: http://localhost:3001/api/workouts/program/:id
 async function getProgram(req, res) {
 
     // Gets program name passed into request url
-    const programName = req.path.slice(9)
+    const programId = req.params.id
+    console.log(programId)
 
-    const program = await Program.findOne({programName : programName}).populate('workouts')
+    const program = await Program.findOne({_id : programId}).populate('workouts')
 
     if (program) {
         res.status(200).json(program)

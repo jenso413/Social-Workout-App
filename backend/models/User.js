@@ -35,9 +35,15 @@ const UserSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false,
+    },
+    community: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Program'
     }
 },
 {timestamps: true}
 )
 
-module.exports = mongoose.model('Users', UserSchema)
+const User = mongoose.model('User', UserSchema)
+
+module.exports = { User } 

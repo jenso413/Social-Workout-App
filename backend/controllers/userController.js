@@ -1,6 +1,7 @@
-const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const { User } = require('../models/User')
+const { Program } = require('../models/Workout')
 
 // @desc    Register new user
 // @route   POST /api/auth/register
@@ -68,7 +69,8 @@ const loginUser = async (req, res) => {
             _id : user.id,
             username: user.username,
             email: user.email,
-            token: generateToken(user._id)
+            token: generateToken(user._id),
+            community: user.community
         })
     } else {
         res.status(400).json('Invalid credentials')
@@ -88,6 +90,34 @@ const getMe = async (req, res) => {
     })
 }
 
+// Adds/updates community to user
+// PATCH: `/api/auth/user/${userId}`
+const updateCommunity = async (req, res) => {
+    
+    const { programName } =  req.body
+    const userId = req.params.id
+
+    const foundProgram = await Program.findOne({ programName: programName })
+
+    if (foundProgram) {
+        const updatedUser = await User.findByIdAndUpdate(userId, {community: foundProgram.id})
+    
+        if (updatedUser) {
+            res.status(200).json({
+                _id : updatedUser.id,
+                username: updatedUser.username,
+                email: updatedUser.email,
+                token: generateToken(updatedUser._id),
+                community: updatedUser.community
+            })
+        } else {
+            res.status(404).json('User not found')
+        }
+    } else {
+        res.status(404).json('Program not found')
+    }
+}
+
 // Generate JWT
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -95,4 +125,4 @@ const generateToken = (id) => {
     })
 }
 
-module.exports = { registerUser, loginUser, getMe }
+module.exports = { registerUser, loginUser, getMe, updateCommunity }

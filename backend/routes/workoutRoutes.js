@@ -6,7 +6,7 @@ const { upload } = require('../middleware/workoutMiddleware')
 router.route('/program').post(addProgram)
 router.route('/add-workout').post(addWorkout)
 router.route('/exercise').post(addExercise)
-router.route('/program/:name').get(getProgram)
+router.route('/program/:id').get(getProgram)
 router.route('/programs').get(getAllPrograms)
 
 

@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useSelector } from "react-redux";
 
 
-export default function AddWorkout({ workoutName, programName }) {
+export default function AddWorkout({ workoutName, programName, test}) {
 
     const newExercise = {
         exerciseName: '',
@@ -25,6 +25,8 @@ export default function AddWorkout({ workoutName, programName }) {
         addToServer()
 
         setExerciseList([])
+
+        test++
     }
 
     function addToServer() {

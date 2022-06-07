@@ -17,4 +17,6 @@ const postSchema = new Schema(
     { timestamps: true }
 )
 
-module.exports = mongoose.model('Posts', postSchema)
+const Post = mongoose.model('Posts', postSchema)
+
+module.exports = { Post }

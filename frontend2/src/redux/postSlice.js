@@ -15,6 +15,7 @@ const initialState = {
 
 export const createPost = createAsyncThunk('user/posts',  async (postData, thunkAPI) => {
     try {
+        console.log('hi')
         const token = thunkAPI.getState().auth.user.token
         const res = await postService.createPost(postData, token)
         return res
@@ -38,6 +39,7 @@ export const postSlice = createSlice({
             .addCase(createPost.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
+                console.log('fulfilled')
                 state.postsArray.push(action.payload)
             })
             .addCase(createPost.rejected, (state, action) => {

@@ -1,8 +1,9 @@
-const Post = require('../models/Posts');
-const User = require('../models/User')
+const { Post } = require('../models/Posts');
+const { User } = require('../models/User')
 
 // Adds new post
 async function addNewPost(req, res) {
+    console.log(req.user)
     const newPost = await new Post({
         content : req.body.content,
         user: req.user.id,
@@ -21,9 +22,9 @@ async function addNewPost(req, res) {
 // Returns all posts
 async function getAllPosts(req, res) {
     // Return array of post objects
-    const posts = await Post.find({ user: req.user.id })
+    const posts = await Post.find({})
 
-    res.status(200).json(posts)
+    res.status(200).json(posts) 
 }
 
 const updatePost = async (req, res) => {
