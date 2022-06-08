@@ -4,8 +4,8 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCommunity } from '../redux/authSlice';
 
-export default function Group({ programName, picture, favColor }) {
-
+export default function Group({ programName, picture, favColor, wider }) {
+    console.log(wider)
     const [displayModal, setDisplayModal] = useState('')
     const userId = useSelector((state) => state.auth.user._id)
     console.log(userId)
@@ -30,7 +30,7 @@ export default function Group({ programName, picture, favColor }) {
 
     return (
         <>
-            <div className='group__card' onClick={() => {setDisplayModal('active')}} style = {{
+            <div className={`group__card ${wider ? wider : 'normal-width'}`} onClick={() => {setDisplayModal('active')}} style = {{
                 background: `linear-gradient(0deg, rgba(0,0,0,0.80) 0%, rgba(0, 0, 0, 0) 50%, rgba(0,0,0,0.80) 100%), url(${picture})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'contain',

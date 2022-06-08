@@ -5,6 +5,7 @@ import App from './components/App';
 import Social from './components/Social'
 import Fitness from './components/Fitness'
 import UserAuth from './components/UserAuth'
+import Friends from './components/Friends'
 import Communities from './components/Communities'
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
@@ -26,6 +27,7 @@ root.render(
         <Route path='main' element={<App />} />
         <Route path='workout' element={<Logger />} />
         <Route path='communities' element={<Communities />} />
+        <Route path='friends' element={<Friends />} />
       </Routes>
     </BrowserRouter>
     <ToastContainer />

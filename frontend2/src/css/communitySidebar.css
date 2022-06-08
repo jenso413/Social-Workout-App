@@ -12,4 +12,9 @@
     display: block;
     margin: 2rem auto;
     border-radius: 10px;
+    cursor: pointer;
+}
+
+.wider {
+    width: 90%;
 }

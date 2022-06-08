@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../css/socialicons.css'
 import strongIcon from '../assets/strong-icon.png'
 import PeopleIcon from '@mui/icons-material/People';
@@ -6,9 +7,12 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { IconButton } from '@mui/material'
 
 export default function SocialIcons() {
+
+    const navigate = useNavigate();
+
     return (
         <div className='nav__icons'>
-            <IconButton>
+            <IconButton onClick={() => navigate('/friends')}>
                 <PeopleIcon sx={{ fontSize: 40 }}/>
             </IconButton>
             <IconButton>

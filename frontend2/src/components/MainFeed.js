@@ -2,23 +2,24 @@ import React, { useEffect, useState } from 'react'
 import MakePost from './MakePost'
 import '../css/mainfeed.css'
 import Post from './Post'
+import { Box, Switch, FormControlLabel } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../redux/postSlice'
 
 export default function MainFeed() {
 
     const dispatch = useDispatch()
-    const { user } = useSelector(state => state.auth)
+    const id = useSelector(state => state.auth.user._id)
     const [postsArray, setPostsArray] = useState([])
     const [postInfo, setPostInfo] = useState('')
+    const [switchStatus, setSwitchStatus] = useState(true)
 
     useEffect(() => {
-        console.log('started')
-        fetch('/api/posts/')
+        fetch(`/api/posts/${id}`)
             .then(res => res.json())
             .then(data => {
                 setPostsArray(data)
-                console.log('hello')
+                console.log(data)
             })
     }, [])
 
@@ -34,7 +35,7 @@ export default function MainFeed() {
         setPostInfo('')
     }
 
-    const postElements = postsArray.map(post => {
+    const postElements = postsArray.map((post, index) => {
 
         // console.log(post)
         const date = post.createdAt.toString().slice(0, 10);
@@ -43,9 +44,32 @@ export default function MainFeed() {
             textContent={post.content}
             date={date}
             username={post.username}
-            key={post._id}
+            key={index}
         />
     })
+
+    function changeFeed() {
+        setSwitchStatus(prevStatus => !prevStatus)
+
+        if (switchStatus) {
+            fetch('/api/posts/')
+                .then(res => res.json())
+                .then(data => {
+                    setPostsArray(data)
+                    console.log(data)
+                    console.log('discovering')
+                })
+        } else {
+            fetch(`/api/posts/${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    setPostsArray(data)
+                    console.log(data)
+                })
+        }
+    }
+
+    
 
     return (
         <main className='feed'>
@@ -54,6 +78,9 @@ export default function MainFeed() {
                 handleInput= {handleInput}
                 postInfo = {postInfo}
             />
+            <Box>
+                <FormControlLabel label='Discover' control={<Switch onChange={changeFeed} value={switchStatus}/>} />
+            </Box>
             {postElements.reverse()}
         </main>
     )

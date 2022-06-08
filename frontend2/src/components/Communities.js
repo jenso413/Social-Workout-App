@@ -20,7 +20,7 @@ export default function Community() {
 
     const communityElements = communities.map((community, index) => {
         const { programName, picture, favColor } = community
-        return <Group key={index} className='group' programName={programName} picture={picture} favColor={favColor} />
+        return <Group key={index} programName={programName} picture={picture} favColor={favColor} />
     })
 
     return (

@@ -4,6 +4,7 @@ const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
+        unique: true,
     },
     password: {
         type: String,
@@ -20,18 +21,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    coverPic: {
-        type: String,
-        default: ''
-    },
-    followers: {
-        type: Array,
-        default: [],
-    },
-    following: {
-        type: Array,
-        default: [],
-    },
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     isAdmin: {
         type: Boolean,
         default: false,

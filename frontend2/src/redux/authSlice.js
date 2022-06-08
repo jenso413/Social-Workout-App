@@ -47,6 +47,17 @@ export const updateCommunity = createAsyncThunk('auth/community', async (userDat
     }
 })
 
+// Add friend
+export const addFriend = createAsyncThunk('/friend/add', async (ids, thunkAPI) => {
+    console.log(ids)
+    try {
+        return await authService.addFriend(ids)
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -101,9 +112,19 @@ export const authSlice = createSlice({
                 state.isError = true
                 state.message = action.payload
             })
-            // .addCase(logout.fulfulled, (state) => {
-            //     state.user = null
-            // })
+            .addCase(addFriend.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(addFriend.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.user = action.payload
+            })
+            .addCase(addFriend.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload
+            })
     }
 })
 

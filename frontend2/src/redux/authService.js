@@ -49,9 +49,23 @@ const updateCommunity = async (userData) => {
     }
 }
 
+// Add friend
+const addFriend = async (ids) => {
+    const { myId, friendId } = ids
+
+    const response = await axios.post('/api/auth/friend', {myId, friendId})
+
+    if (response.data) {
+        console.log('successful response')
+    } else {
+        console.log('failure')
+    }
+}
+
 const authService = {
     register,
-    updateCommunity
+    updateCommunity,
+    addFriend
 }
 
 export default authService;

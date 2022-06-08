@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { User } = require('../models/User')
 const { Program } = require('../models/Workout')
+const req = require('express/lib/request')
+const { json } = require('express/lib/response')
 
 // @desc    Register new user
 // @route   POST /api/auth/register
@@ -70,7 +72,8 @@ const loginUser = async (req, res) => {
             username: user.username,
             email: user.email,
             token: generateToken(user._id),
-            community: user.community
+            community: user.community,
+            friends: user.friends
         })
     } else {
         res.status(400).json('Invalid credentials')
@@ -88,6 +91,42 @@ const getMe = async (req, res) => {
         username,
         email
     })
+}
+
+// @desc    Get user by username
+// @route   GET /api/auth/user/:username
+// @access  Public
+const getUserByUsername = async (req, res) => {
+    const { username } = req.params
+    console.log(username)
+
+    const user = await User.findOne({ username })
+
+    if (user) {
+        res.status(200).json({
+            id: user._id,
+            username: user.username,
+            email: user.email
+        })
+    } else {
+        res.status(404).json('No user with that username found')
+    }
+}
+
+// POST /api/auth/friend
+const addFriend = async (req, res) => {
+    const { myId, friendId } = req.body
+    console.log(req.body)
+
+    const myUser = await User.findById(myId)
+
+    if (myUser) {
+        myUser.friends.push(friendId)
+        const savedUser = await myUser.save()
+        res.status(200).json(savedUser)
+    } else {
+        res.status(404).json('User Cannot be found')
+    }
 }
 
 // Adds/updates community to user
@@ -108,13 +147,28 @@ const updateCommunity = async (req, res) => {
                 username: updatedUser.username,
                 email: updatedUser.email,
                 token: generateToken(updatedUser._id),
-                community: updatedUser.community
+                community: updatedUser.community,
+                friends: updatedUser.friends
             })
         } else {
             res.status(404).json('User not found')
         }
     } else {
         res.status(404).json('Program not found')
+    }
+}
+
+// Get /api/auth/friends/:userId
+const getFriends = async (req, res) => {
+    const { userId } = req.params
+    console.log(userId)
+
+    const myUser = await User.findById(userId).populate('friends')
+
+    if (myUser) {
+        res.status(200).json(myUser)
+    } else {
+        console.log('Cannot find user')
     }
 }
 
@@ -125,4 +179,4 @@ const generateToken = (id) => {
     })
 }
 
-module.exports = { registerUser, loginUser, getMe, updateCommunity }
+module.exports = { registerUser, loginUser, getMe, updateCommunity, getUserByUsername, addFriend, getFriends }
