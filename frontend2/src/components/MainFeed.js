@@ -12,6 +12,8 @@ export default function MainFeed() {
     const id = useSelector(state => state.auth.user._id)
     const [postsArray, setPostsArray] = useState([])
     const [postInfo, setPostInfo] = useState('')
+
+    // Should default to false, but my function doesn't detect the state change right away
     const [switchStatus, setSwitchStatus] = useState(true)
 
     useEffect(() => {

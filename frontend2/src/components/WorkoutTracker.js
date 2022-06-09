@@ -15,23 +15,19 @@ function WorkoutTracker({ workout }) {
     })
 
     return (
-        <table className='exercise-table'>
-            <tbody>
-                <tr>
-                    <th>Exercise</th>
-                    <th>Weight</th>
-                    <th>Reps</th>
-                </tr>
-                {exerciseList}
-                {/* <Exercise />
-                <Exercise />
-                <Exercise />
-                <Exercise />
-                <Exercise />
-                <Exercise />
-                <Exercise /> */}
-            </tbody>
-        </table>
+        <>
+            <table className='exercise-table'>
+                <tbody>
+                    <tr>
+                        <th>Exercise</th>
+                        <th>Weight</th>
+                        <th>Reps</th>
+                    </tr>
+                    {exerciseList}
+                </tbody>
+            </table>
+            <button>Finished Workout</button>
+        </>
     )
 }
 

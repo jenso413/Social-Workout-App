@@ -15,7 +15,7 @@ export default function SocialIcons() {
             <IconButton onClick={() => navigate('/friends')}>
                 <PeopleIcon sx={{ fontSize: 40 }}/>
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => navigate('/fitness')}>
                 <div className='strong-icon-container'>
                     <img className='strong-icon' src={strongIcon}/>
                 </div>
