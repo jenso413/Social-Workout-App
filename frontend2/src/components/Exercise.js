@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import '../css/exercise.css'
+import { logExercise } from '../redux/logWorkoutSlice'
 
-export default function Exercise({ exercise }) {
+export default function Exercise({ exercise, submitWorkout }) {
 
+    const dispatch = useDispatch()
     const inputArray = []
     const { exerciseName, repRange, setCount } = exercise
 
@@ -19,6 +22,19 @@ export default function Exercise({ exercise }) {
     }
 
     const [exerciseData, setExerciseData] = useState(initialExerciseData)
+
+    const isFirstRun = useRef(true)
+
+    useEffect(() => {
+        // To ignore first render
+        if (isFirstRun.current) {
+            isFirstRun.current = false
+            return
+        } else {
+            console.log('hi')
+            dispatch(logExercise(exerciseData))
+        }
+    }, [submitWorkout])
 
     function handleChange(e) {
         switch (e.target.name) {
