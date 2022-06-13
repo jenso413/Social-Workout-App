@@ -13,3 +13,12 @@
     padding: 10px;
     border-radius: 50%;
 }
+
+.camera-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0075FF;
+    padding: 10px;
+    border-radius: 50%;
+}

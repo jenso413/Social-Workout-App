@@ -3,12 +3,14 @@ import Exercise from './Exercise'
 import '../css/workoutTracker.css'
 import { logWorkoutData } from '../redux/logWorkoutSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { logWorkoutToDB } from '../redux/logWorkoutSlice'
 
 function WorkoutTracker({ workout }) {
 
     console.log(workout)
     const dispatch = useDispatch()
     const userId = useSelector(state => state.auth.user._id)
+    const loggedWorkout = useSelector(state => state.logWorkout)
 
     const { exercises } = workout 
 
@@ -19,7 +21,7 @@ function WorkoutTracker({ workout }) {
         return <Exercise key={index} exercise={exercise} submitWorkout={submitWorkout} />
     })
 
-    function logWorkout() {
+    function logWorkoutToRedux() {
         // Tells exercise components to submit their data
         setSubmitWorkout(true)
 
@@ -29,6 +31,22 @@ function WorkoutTracker({ workout }) {
             workoutId : workout._id,
             userId,
         }))
+
+        // Send redux info to server
+        // const workoutData = useSelector(state => state.logWorkout)
+        // console.log(workoutData)
+    }
+
+    function logWorkoutToDB() {
+        fetch('/api/log-workout/', {
+            method: 'POST', 
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(loggedWorkout)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
     }
 
     return (
@@ -43,7 +61,8 @@ function WorkoutTracker({ workout }) {
                     {exerciseList}
                 </tbody>
             </table>
-            <button onClick={logWorkout}>Finished Workout</button>
+            <button onClick={logWorkoutToRedux}>Finished Workout</button>
+            <button onClick={logWorkoutToDB}>Log Workout</button>
         </>
     )
 }

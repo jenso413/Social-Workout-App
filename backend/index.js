@@ -18,6 +18,7 @@ app.use(express.urlencoded({limit: '50mb', extended: true}))
 app.use('/api/posts', require('./routes/postRoutes'))
 app.use('/api/auth', require('./routes/userRoutes'))
 app.use('/api/workouts', require('./routes/workoutRoutes'))
+app.use('/api/log-workout', require('./routes/logRoutes'))
 
 const PORT = process.env.PORT || 3001;
 

@@ -15,6 +15,7 @@ import { store } from './redux/store'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Logger from './components/Logger';
+import Graph from './components/Graph';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,9 +26,10 @@ root.render(
         <Route path='social' element={<Social />} />
         <Route path='fitness' element={<Fitness />} />
         <Route path='main' element={<App />} />
-        <Route path='workout' element={<Logger />} />
-        <Route path='communities' element={<Communities />} />
-        <Route path='friends' element={<Friends />} />
+        <Route path='fitness/workout' element={<Logger />} />
+        <Route path='social/communities' element={<Communities />} />
+        <Route path='social/friends' element={<Friends />} />
+        <Route path='fitness/graph' element={<Graph />} />
       </Routes>
     </BrowserRouter>
     <ToastContainer />

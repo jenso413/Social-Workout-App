@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
 const initialState = {
     userId: '',
@@ -7,6 +8,20 @@ const initialState = {
     programName: '',
     exercises: []
 }
+
+export const logWorkoutToDB = createAsyncThunk('/workout/log', async (thunkAPI) => {
+    try {   
+        fetch('', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify()
+        })
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 const logWorkoutSlice = createSlice({
     name: 'logWorkout', 

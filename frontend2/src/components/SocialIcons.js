@@ -12,7 +12,7 @@ export default function SocialIcons() {
 
     return (
         <div className='nav__icons'>
-            <IconButton onClick={() => navigate('/friends')}>
+            <IconButton onClick={() => navigate('/social/friends')}>
                 <PeopleIcon sx={{ fontSize: 40 }}/>
             </IconButton>
             <IconButton onClick={() => navigate('/fitness')}>

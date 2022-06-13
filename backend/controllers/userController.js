@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { User } = require('../models/User')
 const { Program } = require('../models/Workout')
-const req = require('express/lib/request')
-const { json } = require('express/lib/response')
+// const req = require('express/lib/request')
+// const { json } = require('express/lib/response')
 
 // @desc    Register new user
 // @route   POST /api/auth/register

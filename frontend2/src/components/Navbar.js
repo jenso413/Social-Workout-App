@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../css/navbar.css'
 import logo from '../assets/default.png'
 import { Avatar, IconButton } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import SocialIcons from './SocialIcons';
 import FitnessIcons from './FitnessIcons';
 import { useSelector } from 'react-redux'
 
-// <button><Link to='/mainfeed'>dick</Link></button>
-
 export default function Navbar() {
 
     const { user } = useSelector(state => state.auth)
+    const location = useLocation()
+    const [navbarStatus, setNavbarStatus] = useState(null)
+
+    useEffect(() => {
+        if (location.pathname.includes('fitness')) {
+            setNavbarStatus('fitness')
+        } else if (location.pathname.includes('social')) {
+            setNavbarStatus('social')
+        }
+    }, [])
 
     return (
         <nav>
@@ -19,7 +27,8 @@ export default function Navbar() {
                 <img src={logo} />
             </div>
             <div className='nav__center'>
-                <SocialIcons />
+                {navbarStatus == 'social' && <SocialIcons /> }
+                {navbarStatus == 'fitness' && <FitnessIcons /> }
             </div>
             <div className='nav__right'>
                 <div className='user__info'>
