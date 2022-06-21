@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { User } = require('../models/User')
 const { Program } = require('../models/Workout')
+const { Log } = require('../models/Log')
 // const req = require('express/lib/request')
 // const { json } = require('express/lib/response')
 
@@ -179,4 +180,53 @@ const generateToken = (id) => {
     })
 }
 
-module.exports = { registerUser, loginUser, getMe, updateCommunity, getUserByUsername, addFriend, getFriends }
+// PATCH /api/auth/user/:id/streak
+const incrementStreak = async (req, res) => {
+    const { id } = req.params
+    console.log(id)
+
+    const user = await User.findById(id)
+
+    const userLogs = await Log.find({user: user._id}).sort({ createdAt: 'desc'})
+    const mostRecentLog = userLogs[0].createdAt.toString()
+    const recentLogDate = mostRecentLog.slice(4, 16)
+    console.log(recentLogDate)
+    
+    let currentDate = new Date().toString().slice(4, 16)
+    console.log(currentDate)
+
+    // if most recent log was any day but today, increment streak by 1
+    if (recentLogDate == currentDate) {
+        return
+    } else {
+        if (user) {
+            user.streak++
+            user.loggedToday = true
+            await user.save()
+            res.status(200).json(user)
+        } else {
+            console.log('user not found')
+        }
+    }
+    // if most recent log was today, do nothing
+
+    // WE WILL DO SENTENCE BELOW BY POLLING, DONT WORRY ABOUT THIS HERE
+    // if most recent log was not yesterday, start streak at 0
+    // just need to check most recent
+    // console.log(userLogTimestamps)
+
+
+    // Run a function for every single user
+    // For each user, find their logs, and see if they logged yesterday
+    // If so, do nothing
+    // If not, set streak back to 0
+
+
+    // READ THIS
+    // After updating streak, change new 'loggedToday' property to true
+    // At midnight, update every user in DB
+    // If loggedToday was false, set streak back to 0
+    // Otherwise, just set it back to false
+}
+
+module.exports = { registerUser, loginUser, getMe, updateCommunity, getUserByUsername, addFriend, getFriends, incrementStreak }

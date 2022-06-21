@@ -1,25 +1,28 @@
 const { Log } = require('../models/Log')
+const { User } = require('../models/User')
 
 const logWorkout = async (req, res) => {
 
     const {userId, workoutName, workoutId, programName, exercises} = req.body
-    console.log(exercises)
     
+    const user = await User.findById(userId)
 
     const newLog = await new Log({
-        userId,
         workoutName,
         workoutId,
         programName,
     })
+
+    newLog.user = user._id
 
     for (let exercise of exercises) {
         newLog.exercises.push(exercise)
     }
 
     if (newLog) {
-        const log = await newLog.save()
-        res.status(200).json(log)
+        await newLog.save()
+        console.log(newLog)
+        res.status(200).json(newLog)
     } else {
         console.log('Could not save log')
     }

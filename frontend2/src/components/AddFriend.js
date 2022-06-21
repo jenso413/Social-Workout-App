@@ -2,6 +2,7 @@ import React from 'react'
 import { Avatar, } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import Post from './Post'
+import socket from '../sockets/friendSocket'
 
 function AddFriend({ friend }) {
 
@@ -10,6 +11,7 @@ function AddFriend({ friend }) {
     const myId = useSelector(state => state.auth.user._id)
 
     function addFriend() {
+
         fetch('/api/auth/friend', {
             method: 'POST', 
             headers: {
@@ -19,8 +21,10 @@ function AddFriend({ friend }) {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                console.log('hi')
+                socket.emit('add-friend')
             })
+
     }
 
     return (

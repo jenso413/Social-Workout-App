@@ -31,7 +31,15 @@ const UserSchema = new mongoose.Schema({
     },
     community: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Program'
+        ref: 'Program',
+    },
+    streak: {
+        type: Number,
+        default: 0,
+    },
+    loggedToday: {
+        type: Boolean, 
+        default: false,
     }
 },
 {timestamps: true}

@@ -46,7 +46,24 @@ function WorkoutTracker({ workout }) {
             body: JSON.stringify(loggedWorkout)
         })
             .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                incrementStreak()
+            })
+    }
+
+    function incrementStreak() {
+        console.log('incrementing streak...')
+        // after clicking submit workout, increment streak
+        fetch(`/api/auth/user/${userId}/streak`, {method: 'PATCH'})
+            .then(res => res.json())
             .then(data => console.log(data))
+        // patch request to backend targeting logged in user
+        // increment streak
+        // update display automatically (web socket)
+
+        // also: polling at 12:00 am every day
+        // if there is not a log from yesterday, streak goes to 0
     }
 
     return (
@@ -62,7 +79,8 @@ function WorkoutTracker({ workout }) {
                 </tbody>
             </table>
             <button onClick={logWorkoutToRedux}>Finished Workout</button>
-            <button onClick={logWorkoutToDB}>Log Workout</button>
+            {/* used to be logWorkoutToDB */}
+            <button onClick={incrementStreak}>Log Workout</button>
         </>
     )
 }

@@ -7,6 +7,7 @@ import Fitness from './components/Fitness'
 import UserAuth from './components/UserAuth'
 import Friends from './components/Friends'
 import Communities from './components/Communities'
+import UserInfo from './components/UserInfo';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
@@ -16,6 +17,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Logger from './components/Logger';
 import Graph from './components/Graph';
+import Leaderboard from './components/Leaderboard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -30,6 +32,8 @@ root.render(
         <Route path='social/communities' element={<Communities />} />
         <Route path='social/friends' element={<Friends />} />
         <Route path='fitness/graph' element={<Graph />} />
+        <Route path='user' element={<UserInfo />} />
+        <Route path='social/leaderboard' element={<Leaderboard />} />
       </Routes>
     </BrowserRouter>
     <ToastContainer />

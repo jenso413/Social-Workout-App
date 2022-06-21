@@ -21,7 +21,7 @@ export default function SocialIcons() {
                 </div>
             </IconButton>
             <IconButton>
-                <LocalFireDepartmentIcon sx={{ fontSize: 40 }}/>
+                <LocalFireDepartmentIcon onClick={() => navigate('/social/leaderboard')} sx={{ fontSize: 40 }}/>
             </IconButton>
         </div>
     )

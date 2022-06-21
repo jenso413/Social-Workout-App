@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { register, reset } from '../redux/authSlice'
+import { register, reset, login } from '../redux/authSlice'
 
 export default function SignUp() {
 
@@ -51,7 +51,7 @@ export default function SignUp() {
 
     const { username, email, password, password2 } = formData
 
-    const [userInfo, setUserInfo] = React.useState({})
+    const [loginInfo, setLoginInfo] = React.useState({username: '', password: ''})
 
     useEffect(() => {
         if (isError) {
@@ -100,29 +100,41 @@ export default function SignUp() {
 
     async function loginUser(e) {
         e.preventDefault()
-        try {
-            const response = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
 
-            if(!response.ok) {
-            throw new Error(`Error! Status: ${response.status}`)
-            }
+        dispatch(login(loginInfo))
+        // try {
+        //     const response = await fetch('/api/auth/login', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(formData)
+        //     })
 
-            const result = await response.json()
-            // console.log(result)
+        //     if(!response.ok) {
+        //     throw new Error(`Error! Status: ${response.status}`)
+        //     }
 
-            setUserInfo(result)
+        //     const result = await response.json()
+        //     // console.log(result)
 
-        } catch(err) {
-            console.log(err)
-        }
+        //     setUserInfo(result)
+        //     console.log(result)
+        //     navigate('/main')
+        //     dispatch(register(userData))
+
+        // } catch(err) {
+        //     console.log(err)
+        // }
 
         setFormData(initialFormValue)
+    }
+
+    function handleLoginChange(e) {
+        setLoginInfo(prevState => ({
+            ...prevState,
+            [e.target.name] : e.target.value
+        }))
     }
 
     return (
@@ -139,11 +151,11 @@ export default function SignUp() {
                     ? <form className='form'>
                         <CloseIcon className='close-icon' onClick={closeModal}/>
                         <h2>Sign In</h2>
-                        <input name='username' value={formData.username} onChange={handleChange} type='text' placeholder='Enter your username'></input>
-                        <input name='password' value={formData.password} onChange={handleChange} type='password' placeholder='Enter your password'></input>
+                        <input name='username' value={loginInfo.username} onChange={handleLoginChange} type='text' placeholder='Enter your username'></input>
+                        <input name='password' value={loginInfo.password} onChange={handleLoginChange} type='password' placeholder='Enter your password'></input>
                         <button onClick={loginUser}>Submit</button>
                     </form>
-                
+        
                     : <form className='form'>
                         <CloseIcon className='close-icon' onClick={closeModal}/>
                         <h2>Sign Up</h2>

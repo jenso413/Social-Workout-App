@@ -2,7 +2,10 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const logSchema = new Schema({
-    userId: String,
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     workoutName: String,
     workoutId: String,
     programName: String,
@@ -11,7 +14,9 @@ const logSchema = new Schema({
         weight: Number,
         reps: [Number]
     }],
-})
+},
+{timestamps: true}
+)
 
 const Log = mongoose.model('Log', logSchema)
 

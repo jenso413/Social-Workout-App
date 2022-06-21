@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-const API_URL = '/api/auth/register/'
+const API_URL = '/api/auth/'
 
 // Register user
 const register = async (userData) => {
 
-    const response = await axios.post(API_URL, userData);
+    const response = await axios.post(API_URL + 'register', userData);
 
     if (response.data) {
         localStorage.setItem('user', JSON.stringify(response.data))
@@ -23,6 +23,7 @@ const login = async (userData) => {
 
     if (response.data) {
         localStorage.setItem('user', JSON.stringify(response.data))
+        console.log(response.data)
     } else {
         console.log('error') 
     }
@@ -65,7 +66,8 @@ const addFriend = async (ids) => {
 const authService = {
     register,
     updateCommunity,
-    addFriend
+    addFriend,
+    login
 }
 
 export default authService;

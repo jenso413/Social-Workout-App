@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import MakePost from './MakePost'
 import '../css/mainfeed.css'
 import Post from './Post'
-import { Box, Switch, FormControlLabel } from '@mui/material';
+import { Box, Switch, FormControlLabel } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../redux/postSlice'
+import socket from '../sockets/friendSocket'
 
 export default function MainFeed() {
 
@@ -25,17 +26,30 @@ export default function MainFeed() {
             })
     }, [])
 
+    useEffect(() => {
+        socket.on('received-post', () => {
+            fetch(`/api/posts/${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    setPostsArray(data)
+                    console.log(data)
+                })
+        })
+    }, [socket])
+
+    function socketPost() {
+        dispatch(createPost(postInfo))
+        
+        setPostInfo('')
+
+        socket.emit('make-post')
+    }
+
     // Set input content to current input value
     function handleInput(e) {
         setPostInfo(e.target.value)
     }
 
-    // On button click
-    function handleClick(e) {
-        dispatch(createPost(postInfo))
-        
-        setPostInfo('')
-    }
 
     const postElements = postsArray.map((post, index) => {
 
@@ -70,13 +84,12 @@ export default function MainFeed() {
                 })
         }
     }
-
     
-
     return (
         <main className='feed'>
             <MakePost 
-                handleClick= {handleClick}
+                // changed from handleClick to test
+                handleClick= {socketPost}
                 handleInput= {handleInput}
                 postInfo = {postInfo}
             />
@@ -87,3 +100,11 @@ export default function MainFeed() {
         </main>
     )
 }
+
+// How does socket.io work?
+// You can listen for events, and emit events
+
+// Anyone listening for a specific event will get it when it is emitted
+
+// Create event to emit message
+// Also add listener for emissions

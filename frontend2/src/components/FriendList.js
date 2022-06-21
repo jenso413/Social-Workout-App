@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Friend from './Friend'
 import '../css/friendlist.css'
 import { useSelector } from 'react-redux'
+import socket from '../sockets/friendSocket'
 
 export default function FriendList() {
 
@@ -17,8 +18,21 @@ export default function FriendList() {
             })
     }, [])
 
+    useEffect(() => {
+        console.log('hi')
+        socket.on('added-friend', () => {
+            console.log('frontend received added-friend')
+            fetch(`/api/auth/friends/${userId}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setFriends([...data.friends])
+                })
+        })
+    }, [socket])
+
     const friendElements = friends.map((friend, index) => {
-        return <Friend key={index} name={friend.username}/>
+        return <Friend key={index} name={friend.username} streak={friend.streak}/>
     })
 
     return (

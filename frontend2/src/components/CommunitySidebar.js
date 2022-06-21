@@ -12,7 +12,7 @@ export default function Community() {
             <Group wider='wider'/>
             <Group wider='wider'/>
             <Group wider='wider'/>
-            <button className='community--button' onClick={() => navigate('/communities')}>View more communities</button>
+            <button className='community--button' onClick={() => navigate('/social/communities')}>View more communities</button>
         </aside>
     )
 }

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import '../css/navbar.css'
 import logo from '../assets/default.png'
 import { Avatar, IconButton } from '@mui/material'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import SocialIcons from './SocialIcons';
 import FitnessIcons from './FitnessIcons';
 import { useSelector } from 'react-redux'
 
 export default function Navbar() {
+
+    const navigate = useNavigate()
 
     const { user } = useSelector(state => state.auth)
     const location = useLocation()
@@ -31,7 +33,7 @@ export default function Navbar() {
                 {navbarStatus == 'fitness' && <FitnessIcons /> }
             </div>
             <div className='nav__right'>
-                <div className='user__info'>
+                <div className='user__info' onClick={() => navigate('/user')}>
                     <Avatar sx={{ height: 40, width: 40 }} src='' />
                     <h4>{user && user.username}</h4>
                 </div>

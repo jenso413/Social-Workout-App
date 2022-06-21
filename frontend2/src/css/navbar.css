@@ -39,6 +39,7 @@ nav {
 .user__info {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .user__info h4 {

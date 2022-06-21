@@ -9,7 +9,7 @@ export default function MakePost({ handleClick, handleInput, postInfo }) {
             <div className='make__post--top'>
                 <Avatar src='' />
                 <input onChange={handleInput} value={postInfo} className='text-input' placeholder='Enter text: ' />
-                <input placeholder='Add image' />
+                <input type='file' accept='image/*' />
             </div>
             <div className='make__post--bottom'>
                 <IconButton onClick={handleClick}>Post</IconButton>
