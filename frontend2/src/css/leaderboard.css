@@ -1,0 +1,10 @@
+.two-column-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.leaderboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

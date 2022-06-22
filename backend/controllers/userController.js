@@ -137,12 +137,15 @@ const updateCommunity = async (req, res) => {
     const { programName } =  req.body
     const userId = req.params.id
 
+    const date = new Date().toString().slice(4, 15)
+
     const foundProgram = await Program.findOne({ programName: programName })
 
     if (foundProgram) {
-        const updatedUser = await User.findByIdAndUpdate(userId, {community: foundProgram.id})
+        const updatedUser = await User.findByIdAndUpdate(userId, {community: foundProgram.id, joinedCommunityDate: date})
     
         if (updatedUser) {
+            await updatedUser.save()
             res.status(200).json({
                 _id : updatedUser.id,
                 username: updatedUser.username,

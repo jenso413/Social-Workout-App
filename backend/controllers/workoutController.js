@@ -1,3 +1,4 @@
+const { User } = require('../models/User')
 const { Program, Workout, Exercise } = require('../models/Workout')
 
 // POST: /api/workouts/program
@@ -101,4 +102,21 @@ async function getAllPrograms(req, res) {
     }
 }
 
-module.exports = { addProgram, addWorkout, addExercise, getProgram, getAllPrograms }
+// GET: /api/workouts/program/:id/members'
+async function getProgramMembers(req, res) {
+    // program Id
+    const programId = req.params.id
+    console.log(programId)
+
+    const programMembers = await User.find({community : programId})
+
+    if (programMembers) {
+        res.status(200).json(programMembers)
+    } else {
+        res.status(404).json('No program members found')
+    }
+    
+    
+}
+
+module.exports = { addProgram, addWorkout, addExercise, getProgram, getAllPrograms, getProgramMembers }

@@ -23,3 +23,6 @@ module.exports = cron.schedule('00 00 00 * * *', async () => {
 // need to set up a socket for streaks so it can constantly update along with DB
 // need to make it so as long as you're following a program (including rest days) streak will update
 // so streak doesn't reset to 0 if you're on a rest day
+
+// Another problem
+// Not properly saving user community info in redux

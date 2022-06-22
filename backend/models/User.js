@@ -33,6 +33,9 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Program',
     },
+    joinedCommunityDate: {
+        type: String,
+    },
     streak: {
         type: Number,
         default: 0,
