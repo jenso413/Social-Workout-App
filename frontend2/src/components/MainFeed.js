@@ -6,13 +6,19 @@ import { Box, Switch, FormControlLabel } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../redux/postSlice'
 import socket from '../sockets/friendSocket'
+import { dateFormatter } from '../utility/formateDate'
 
 export default function MainFeed() {
+
+    const initialPostState = {
+        textContent: '',
+        postImg: ''
+    }
 
     const dispatch = useDispatch()
     const id = useSelector(state => state.auth.user._id)
     const [postsArray, setPostsArray] = useState([])
-    const [postInfo, setPostInfo] = useState('')
+    const [postInfo, setPostInfo] = useState(initialPostState)
 
     // Should default to false, but my function doesn't detect the state change right away
     const [switchStatus, setSwitchStatus] = useState(true)
@@ -37,32 +43,37 @@ export default function MainFeed() {
         })
     }, [socket])
 
-    function socketPost() {
+    function handlePostTextChange(e) {
+        setPostInfo(prevState => ({
+            ...prevState, 
+            textContent: e.target.value
+        }))
+    }
+
+    function handleFileInputChange(e) {
+        const file = e.target.files[0]
+        previewFile(file)
+    }
+
+    function previewFile(file) {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            setPostInfo(prevState => ({
+                ...prevState, 
+                postImg: reader.result
+            }))
+        }
+    }
+
+    function socketPost(e) {
+        // go over
         dispatch(createPost(postInfo))
         
-        setPostInfo('')
+        setPostInfo(initialPostState)
 
         socket.emit('make-post')
     }
-
-    // Set input content to current input value
-    function handleInput(e) {
-        setPostInfo(e.target.value)
-    }
-
-
-    const postElements = postsArray.map((post, index) => {
-
-        // console.log(post)
-        const date = post.createdAt.toString().slice(0, 10);
-
-        return <Post
-            textContent={post.content}
-            date={date}
-            username={post.username}
-            key={index}
-        />
-    })
 
     function changeFeed() {
         setSwitchStatus(prevStatus => !prevStatus)
@@ -84,14 +95,37 @@ export default function MainFeed() {
                 })
         }
     }
+
+    const postElements = postsArray.map((post, index) => {
+
+        const rawDate = post.createdAt.toString()
+        const date = dateFormatter(rawDate)
+        console.log(date)
+        
+        const { community, username, profilePic } = post.user
+        console.log(community)
+
+        return <Post
+        // Change date format by doing toString
+            communityId={community}
+            textContent={post.content}
+            date={date}
+            username={username}
+            key={index}
+            profilePic={profilePic}
+            image={post.image}
+        />
+    })
     
     return (
         <main className='feed'>
             <MakePost 
                 // changed from handleClick to test
                 handleClick= {socketPost}
-                handleInput= {handleInput}
-                postInfo = {postInfo}
+                handlePostTextChange= {handlePostTextChange}
+                textContent = {postInfo.textContent}
+                handleFileInputChange={handleFileInputChange}
+                previewSource={postInfo.postImg}
             />
             <Box>
                 <FormControlLabel label='Discover' control={<Switch onChange={changeFeed} value={switchStatus}/>} />

@@ -75,7 +75,7 @@ async function addExercise(req, res) {
     }
 }
 
-// GET: http://localhost:3001/api/workouts/program/:id
+// GET: /api/workouts/program/:id
 async function getProgram(req, res) {
 
     // Gets program name passed into request url

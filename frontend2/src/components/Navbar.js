@@ -26,7 +26,7 @@ export default function Navbar() {
     return (
         <nav>
             <div className='nav__left'>
-                <img src={logo} />
+                <img style={{cursor: 'pointer'}} src={logo} onClick={() => navigate('/main')}/>
             </div>
             <div className='nav__center'>
                 {navbarStatus == 'social' && <SocialIcons /> }

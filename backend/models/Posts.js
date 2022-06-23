@@ -3,7 +3,11 @@ const { Schema } = mongoose;
 
 const postSchema = new Schema(
     {
-    username: String,
+    user: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
+    },
+    image: {},
     content : String,
     likes: {
         type: Number,
@@ -12,9 +16,6 @@ const postSchema = new Schema(
     comments: {
         type: Array
     },
-    user: {
-        type: String
-    }
     },
     { timestamps: true }
 )

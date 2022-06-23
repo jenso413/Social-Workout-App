@@ -1,14 +1,28 @@
 const { Post } = require('../models/Posts')
 const { User } = require('../models/User')
 const ObjectID = require('mongodb').ObjectID
+const { cloudinary } = require('../features/cloudinary')
 
 // Adds new post
 async function addNewPost(req, res) {
-    console.log(req.user)
+
+    const { textContent, postImg } = req.body.content
+    let uploadedResponse
+
+    try {
+        uploadedResponse = await cloudinary.uploader.upload(postImg, {
+            upload_preset: 'ml_default'
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({err: 'Something went terribly wrong'})
+    }
+
+    console.log(req.user._id)
     const newPost = await new Post({
-        content : req.body.content,
-        user: req.user.id,
-        username: req.user.username
+        content : textContent,
+        image: uploadedResponse,
+        user: req.user._id,
     })
     
 
@@ -44,7 +58,7 @@ const getFriendPosts = async (req, res) => {
     for (let friend of friends) {
 
         const friendId = friend.id
-        const posts = await Post.find({ user: friendId}).exec()
+        const posts = await Post.find({ user: friendId}).populate('user')
         
         // for (let post of posts) {
         //     friendPosts.push(post)
@@ -52,7 +66,7 @@ const getFriendPosts = async (req, res) => {
         friendPosts.push(...posts)
     }
 
-    const userPosts = await Post.find({user : userId}).exec()
+    const userPosts = await Post.find({user : userId}).populate('user')
     friendPosts.push(...userPosts)
 
     return res.status(200).json(friendPosts)
