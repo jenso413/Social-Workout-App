@@ -4,7 +4,7 @@ const cron = require('node-cron')
 module.exports = cron.schedule('00 00 00 * * *', async () => {
     const allUsers = await User.find({})
     for (let user of allUsers) {
-        if (user.loggedToday) {
+        if (user.loggedToday == true) {
             user.loggedToday = false
             user.save()
         } else {
