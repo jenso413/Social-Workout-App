@@ -7,7 +7,7 @@ router.post('/login', loginUser)
 
 router.post('/register', registerUser)
 
-router.post('/me', protect, getMe)
+router.get('/:userId', getMe)
 
 router.post('/friend', addFriend)
 

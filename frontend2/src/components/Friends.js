@@ -5,15 +5,15 @@ import FriendList from './FriendList'
 import { Avatar } from '@mui/material'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-
-// Basic idea is that you can search for friends, add them (when added, send friend request)
-// You can also see your current friends, and remove them as friend
+import { useSelector } from 'react-redux'
+import socket from '../sockets/friendSocket'
 
 function Friends() {
 
     const [friendInput, setFriendInput] = useState('')
     const [friend, setFriend] = useState({})
     const [modalActive, setModalActive] = useState(false)
+    const myId = useSelector(state => state.auth.user._id)
 
     function findUser() {
         fetch(`/api/auth/user/${friendInput}`)
@@ -26,6 +26,44 @@ function Friends() {
                     toast.error('User not found')
                 }
             })
+    }
+
+    function addFriend() {
+
+        fetch('/api/auth/friend', {
+            method: 'POST', 
+            headers: {
+                'Content-Type' : 'application/json'
+            }, 
+            body: JSON.stringify({myId, friendId : friend.id})
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('hi')
+                socket.emit('add-friend')
+                setTimeout(() => {
+                    setModalActive(false)
+                }, 500);
+            })
+
+    }
+
+    function removeFriend() {
+        fetch(`/api/auth/friend/${friend.id}`, {
+            method: 'PATCH', 
+            headers: {
+                'Content-Type' : 'application/json'
+            }, 
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                socket.emit('remove-friend')
+                setTimeout(() => {
+                    setModalActive(false)
+                }, 300);
+            })
+
     }
 
     // if already a friend, don't show in modal (instead show remove friend)
@@ -43,9 +81,10 @@ function Friends() {
                     <button onClick={findUser}>Find User!</button>
                     <ToastContainer />
                 </div>
-                <div className={`modal-bg ${modalActive ? 'bg-active' : ''}`}>
-                    <AddFriend friend={friend}/>
-                </div>
+
+                {modalActive && <div className='modal-bg bg-active'>
+                    <AddFriend friend={friend} addFriend={addFriend} removeFriend={removeFriend} />
+                </div>}
             </div>
         </div>
     )

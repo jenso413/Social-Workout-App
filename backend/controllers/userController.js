@@ -82,15 +82,16 @@ const loginUser = async (req, res) => {
 }
 
 // @desc    Get user by ID
-// @route   GET /api/auth/me
+// @route   GET /api/auth/:userId
 // @access  Private
 const getMe = async (req, res) => {
-    const { _id, username, email } = await User.findById(req.user.id)
+    const { _id, username, email, friends } = await User.findById(req.params.userId)
 
     res.status(200).json({
         id : _id,
         username,
-        email
+        email, 
+        friends
     })
 }
 
