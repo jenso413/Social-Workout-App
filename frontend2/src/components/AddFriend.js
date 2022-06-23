@@ -27,11 +27,26 @@ function AddFriend({ friend }) {
 
     }
 
+    function removeFriend() {
+        fetch(`/api/auth/friend/${id}`, {
+            method: 'PATCH', 
+            headers: {
+                'Content-Type' : 'application/json'
+            }, 
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                socket.emit('remove-friend')
+            })
+
+    }
+
     return (
         <div>
             <Avatar />
             <h2>{username}</h2>
-            <button onClick={addFriend}>Add Friend</button>
+            <button onClick={removeFriend}>Remove Friend</button>
         </div>
     )
 }

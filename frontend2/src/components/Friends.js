@@ -3,6 +3,8 @@ import Navbar from './Navbar'
 import AddFriend from './AddFriend'
 import FriendList from './FriendList'
 import { Avatar } from '@mui/material'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 // Basic idea is that you can search for friends, add them (when added, send friend request)
 // You can also see your current friends, and remove them as friend
@@ -11,27 +13,23 @@ function Friends() {
 
     const [friendInput, setFriendInput] = useState('')
     const [friend, setFriend] = useState({})
-    const [isActive, setIsActive] = useState(false)
+    const [modalActive, setModalActive] = useState(false)
 
     function findUser() {
         fetch(`/api/auth/user/${friendInput}`)
-            .then(res => {
+            .then(async (res) => {
                 if (res.ok) {
-                    console.log('there is data')
+                    const jsonFriend = await res.json()
+                    setFriend(jsonFriend)
+                    setModalActive(true)
                 } else {
-                    console.log('no data')
+                    toast.error('User not found')
                 }
             })
-            // .then(data => {
-            //     if (data.ok) {
-            //         console.log('there is data')
-            //         setFriend(data)
-            //     } else {
-            //         console.log('no data')
-            //     }
-                
-            // })
     }
+
+    // if already a friend, don't show in modal (instead show remove friend)
+    // if add or remove friend, send toast
 
     return (
         <div>
@@ -43,8 +41,9 @@ function Friends() {
                     {/* Search for users here */}
                     <input placeholder='Enter a username: ' value={friendInput} onChange={(e) => setFriendInput(e.target.value)} />
                     <button onClick={findUser}>Find User!</button>
+                    <ToastContainer />
                 </div>
-                <div className={`modal-bg ${isActive ? 'bg-active' : ''}`}>
+                <div className={`modal-bg ${modalActive ? 'bg-active' : ''}`}>
                     <AddFriend friend={friend}/>
                 </div>
             </div>

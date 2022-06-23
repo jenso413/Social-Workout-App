@@ -29,6 +29,16 @@ export default function FriendList() {
                     setFriends([...data.friends])
                 })
         })
+
+        socket.on('removed-friend', () => {
+            console.log('frontend received removed-friend')
+            fetch(`/api/auth/friends/${userId}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setFriends([...data.friends])
+                })
+        })
     }, [socket])
 
     const friendElements = friends.map((friend, index) => {

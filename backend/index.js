@@ -45,6 +45,11 @@ io.on('connection', (socket) => {
         console.log('added-friend')
         socket.emit('added-friend')
     })
+
+    socket.on('remove-friend', () => {
+        console.log('removed-friend')
+        socket.emit('removed-friend')
+    })
 })
 
 const PORT = process.env.PORT || 3001;

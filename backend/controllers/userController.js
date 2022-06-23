@@ -211,25 +211,20 @@ const incrementStreak = async (req, res) => {
             console.log('user not found')
         }
     }
-    // if most recent log was today, do nothing
-
-    // WE WILL DO SENTENCE BELOW BY POLLING, DONT WORRY ABOUT THIS HERE
-    // if most recent log was not yesterday, start streak at 0
-    // just need to check most recent
-    // console.log(userLogTimestamps)
-
-
-    // Run a function for every single user
-    // For each user, find their logs, and see if they logged yesterday
-    // If so, do nothing
-    // If not, set streak back to 0
-
-
-    // READ THIS
-    // After updating streak, change new 'loggedToday' property to true
-    // At midnight, update every user in DB
-    // If loggedToday was false, set streak back to 0
-    // Otherwise, just set it back to false
 }
 
-module.exports = { registerUser, loginUser, getMe, updateCommunity, getUserByUsername, addFriend, getFriends, incrementStreak }
+// DELETE /api/auth/friend/:id
+const removeFriend = async (req, res) => {
+    const friendId = req.params.id
+    // placeholder for now
+    const userId = "62ab8f0447667229c17b398e"
+
+    const user = await User.findByIdAndUpdate(userId, {$pull : {friends : friendId}})
+
+    if (user) {
+        res.status(200).json(user)
+    }
+
+}
+
+module.exports = { registerUser, loginUser, getMe, updateCommunity, getUserByUsername, addFriend, getFriends, incrementStreak, removeFriend }
