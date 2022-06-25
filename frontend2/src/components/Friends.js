@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux'
 import socket from '../sockets/friendSocket'
+import { Button } from '@mui/material';
 
 function Friends() {
 
@@ -20,6 +21,10 @@ function Friends() {
             .then(async (res) => {
                 if (res.ok) {
                     const jsonFriend = await res.json()
+                    if (jsonFriend.id == myId) {
+                        toast.error("You cannot friend yourself! (unfortunately)")
+                        return
+                    }
                     setFriend(jsonFriend)
                     setModalActive(true)
                 } else {
@@ -66,8 +71,9 @@ function Friends() {
 
     }
 
-    // if already a friend, don't show in modal (instead show remove friend)
-    // if add or remove friend, send toast
+    function closeModal() {
+        setModalActive(false)
+    }
 
     return (
         <div>
@@ -78,12 +84,12 @@ function Friends() {
                     <Avatar style={{height: '400px', width: '400px'}}/>
                     {/* Search for users here */}
                     <input placeholder='Enter a username: ' value={friendInput} onChange={(e) => setFriendInput(e.target.value)} />
-                    <button onClick={findUser}>Find User!</button>
+                    <Button onClick={findUser} variant='contained'>Find User!</Button>
                     <ToastContainer />
                 </div>
 
                 {modalActive && <div className='modal-bg bg-active'>
-                    <AddFriend friend={friend} addFriend={addFriend} removeFriend={removeFriend} />
+                    <AddFriend friend={friend} addFriend={addFriend} removeFriend={removeFriend} closeModal={closeModal} />
                 </div>}
             </div>
         </div>

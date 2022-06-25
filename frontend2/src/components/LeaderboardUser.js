@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Avatar } from '@mui/material'
 import { useSelector } from 'react-redux'
+import UserAvatar from './UserAvatar'
 
 function LeaderboardUser({ name, communityId, profilePic, streak, rank, joinDate, leaderboardMode }) {
 
@@ -28,8 +29,7 @@ function LeaderboardUser({ name, communityId, profilePic, streak, rank, joinDate
                         <span>{streak} days</span>
                     </td>
                     <td>
-                        <Avatar />
-                        <h2>{name}</h2>
+                        <UserAvatar profilePic={profilePic} name={name} styling='horizontal-friendlist small' />
                     </td>
                     <td>
                         <h3>{joinDate}</h3>
@@ -44,8 +44,7 @@ function LeaderboardUser({ name, communityId, profilePic, streak, rank, joinDate
                         <span>{streak} days</span>
                     </td>
                     <td>
-                        <Avatar />
-                        <h2>{name}</h2>
+                        <UserAvatar profilePic={profilePic} name={name} styling='horizontal-friendlist small'/>
                     </td>
                     <td>
                         <h3>{communityName}</h3>

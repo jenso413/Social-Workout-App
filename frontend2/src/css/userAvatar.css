@@ -1,0 +1,22 @@
+.horizontal-navbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+}
+
+.horizontal-friendlist {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.small {
+    height: 40px;
+    width: 40px;
+}
+
+.medium {
+    height: 60px;
+    width: 60px;
+}

@@ -21,17 +21,15 @@ function Leaderboard() {
             ? (fetch(`/api/workouts/program/${userCommunityId}/members`)
                 .then(res => res.json())
                 .then(data => {
-                    // all we can do here is sort, no logic can be added
-                    const sortedData = data.sort((a, b) => b.streak - a.streak)
-                    setUserArray(sortedData)
+                    const sortedCommunityData = data.sort((a, b) => b.streak - a.streak)
+                    setUserArray(sortedCommunityData)
                 }))
 
             : ((fetch(`/api/auth/friends/${userId}`)
                 .then(res => res.json())
                 .then(data => {
-                    // all we can do here is sort, no logic can be added
-                    const sortedData = data.sort((a, b) => b.streak - a.streak)
-                    setUserArray(sortedData)
+                    const sortedFriendData = data.friends.sort((a, b) => b.streak - a.streak)
+                    setUserArray(sortedFriendData)
                 })))
 
     }, [leaderboardMode])
@@ -39,6 +37,7 @@ function Leaderboard() {
     let rank = 0
     const streakArray = []
 
+    console.log(userArray)
     // needs to change/update whenever socket updates (DB changes)
 
     // This is for community user
@@ -52,14 +51,14 @@ function Leaderboard() {
     })
 
     // This is for user friends
-    const tableElements2 = userArray.map((user, index) => {
-        const { username, community, profilePic, streak, joinedCommunityDate } = user
-        if (user.streak != streakArray[streakArray.length - 1]) {
-            rank += 1
-        }
-        streakArray.push(user.streak)
-        return <LeaderboardUser key={index} rank={rank} leaderboardMode={leaderboardMode} joinDate={joinedCommunityDate} name={username} communityId={community} profilePic={profilePic} streak={streak}/>
-    })
+    // const tableElements2 = userArray.map((user, index) => {
+    //     const { username, community, profilePic, streak, joinedCommunityDate } = user
+    //     if (user.streak != streakArray[streakArray.length - 1]) {
+    //         rank += 1
+    //     }
+    //     streakArray.push(user.streak)
+    //     return <LeaderboardUser key={index} rank={rank} leaderboardMode={leaderboardMode} joinDate={joinedCommunityDate} name={username} communityId={community} profilePic={profilePic} streak={streak}/>
+    // })
 
     function changeLeaderboardMode() {
         setLeaderboardMode(prevState => {
@@ -74,7 +73,7 @@ function Leaderboard() {
     return (
         <div className="App">
             <Navbar />
-            <div className='two-column-container'>
+            <div className='grid-container'>
                 <FriendList />
                 <div className='leaderboard-container'>
                     <Box>
@@ -85,14 +84,8 @@ function Leaderboard() {
                             <tr>
                                 <th>Rank</th>
                                 <th>Streak</th>
-                                {leaderboardMode === 'community'
-                                    ? (<th>Member Name</th>)
-                                    : (<th>Friend</th>)
-                                }
-                                {leaderboardMode === 'community'
-                                    ? (<th>Member Since</th>)
-                                    : (<th>Community Name</th>)
-                                } 
+                                <th>Username</th>
+                                <th>{leaderboardMode === 'community' ? 'Member Since' : 'Community'}</th>
                             </tr>
                         </thead>
                         <tbody>

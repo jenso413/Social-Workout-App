@@ -1,5 +1,5 @@
 const express = require('express');
-const { incrementStreak, registerUser, loginUser, getMe, updateCommunity, getUserByUsername, addFriend, getFriends, removeFriend } = require('../controllers/userController');
+const { incrementStreak, registerUser, loginUser, getMe, updateCommunity, getUserByUsername, addFriend, getFriends, removeFriend, updateProfilePic } = require('../controllers/userController');
 const router = express.Router();
 const { protect } = require('../middleware/authMiddleware')
 
@@ -13,7 +13,10 @@ router.post('/friend', addFriend)
 
 router.patch('/friend/:id', removeFriend)
 
-router.patch('/user/:id', updateCommunity)
+// Not sure why, but wont allow me to run patch to updateProfilePic if this is not commented out
+// router.patch('/user/:id', updateCommunity)
+
+router.patch('/user/update', protect, updateProfilePic)
 
 router.get('/user/:username', getUserByUsername)
 

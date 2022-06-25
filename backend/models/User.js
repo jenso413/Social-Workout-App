@@ -17,10 +17,7 @@ const UserSchema = new mongoose.Schema({
         max: 50,
         // unique: true
     },
-    profilePic: {
-        type: String,
-        default: ''
-    },
+    profilePic: {},
     friends: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

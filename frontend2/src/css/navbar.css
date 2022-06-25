@@ -6,9 +6,9 @@
 nav {
     display: flex;
     background: #d9d8d8;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     height: 100px;
-    padding: 0px 20px;
+    padding: 0px 30px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -19,6 +19,7 @@ nav {
 .nav__left {
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
 .nav__left img {
@@ -27,13 +28,13 @@ nav {
 
 /* Nav Center */
 
-/* Components */
-
 /* Nav Right */
 
 .nav__right {
     display: flex;
     align-items: center;
+    justify-content: right;
+    flex: 1;
 }
 
 .user__info {

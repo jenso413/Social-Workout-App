@@ -23,20 +23,22 @@ export default function Post({ textContent, date, username, profilePic, communit
     return (
         <div className='post__card'>
             <div className='post__top'>
-                <Avatar />
+                <Avatar src={profilePic && profilePic.url}/>
                 <div className='post__top--text'>
-                    <span>{username}</span>
+                    <span style={{fontWeight: 'bold'}}>{username}</span>
                     <p>{date}</p>
                 </div>
                 <h3>{communityName}</h3>
             </div>
-            {image && <Image 
-                cloudName='dhtnjsd7m'
-                publicId={image.public_id}
-                width='300'
-                crop='scale'
-            />}
-            <p className='post__content'>{textContent}</p>
+            <div className='post__content'>
+                {image && <Image 
+                    cloudName='dhtnjsd7m'
+                    publicId={image.public_id}
+                    width='300'
+                    crop='scale'
+                />}
+                <p>{textContent}</p>
+            </div>
             <div className='post__interactions'>
                 <div className='post__option'>
                     <ThumbUpIcon />

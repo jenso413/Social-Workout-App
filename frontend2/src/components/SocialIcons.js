@@ -20,8 +20,8 @@ export default function SocialIcons() {
                     <img className='strong-icon' src={strongIcon}/>
                 </div>
             </IconButton>
-            <IconButton>
-                <LocalFireDepartmentIcon onClick={() => navigate('/social/leaderboard')} sx={{ fontSize: 40 }}/>
+            <IconButton onClick={() => navigate('/social/leaderboard')}>
+                <LocalFireDepartmentIcon sx={{ fontSize: 40 }}/>
             </IconButton>
         </div>
     )

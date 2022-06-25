@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import '../css/group.css'
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCommunity } from '../redux/authSlice';
 
 export default function Group({ programName, picture, favColor, wider }) {
-    console.log(wider)
     const [displayModal, setDisplayModal] = useState('')
     const userId = useSelector((state) => state.auth.user._id)
     console.log(userId)
@@ -28,10 +28,20 @@ export default function Group({ programName, picture, favColor, wider }) {
         dispatch(updateCommunity({userId : userId, programName : programName}))
     }
 
+    function closeModal() {
+        setDisplayModal('')
+    }
+
+    // linear-gradient(
+    //   to bottom,
+    //   rgba(0, 0, 0, 0),
+    //   rgba(0, 0, 0, 0.6)
+    // )
+
     return (
         <>
             <div className={`group__card ${wider ? wider : 'normal-width'}`} onClick={() => {setDisplayModal('active')}} style = {{
-                background: `linear-gradient(0deg, rgba(0,0,0,0.80) 0%, rgba(0, 0, 0, 0) 50%, rgba(0,0,0,0.80) 100%), url(${picture})`,
+                background: `linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(0, 0, 0, 0) 50%, rgba(0,0,0,0.6) 100%), url(${picture})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'contain',
                 backgroundPosition: 'center'
@@ -43,6 +53,7 @@ export default function Group({ programName, picture, favColor, wider }) {
             </div>
             <div className={`modal-bg ${displayModal}`}>
                 <div className='modal-content'>
+                    <CloseIcon onClick={closeModal} className='close-icon' />
                     <h1>{programName}</h1>
                     <span> Number of members: 13,000</span>
                     <p>Workouts</p>

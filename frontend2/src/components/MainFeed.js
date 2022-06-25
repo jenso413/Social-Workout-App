@@ -100,10 +100,8 @@ export default function MainFeed() {
 
         const rawDate = post.createdAt.toString()
         const date = dateFormatter(rawDate)
-        console.log(date)
         
         const { community, username, profilePic } = post.user
-        console.log(community)
 
         return <Post
         // Change date format by doing toString
@@ -127,7 +125,7 @@ export default function MainFeed() {
                 handleFileInputChange={handleFileInputChange}
                 previewSource={postInfo.postImg}
             />
-            <Box>
+            <Box className='switchContainer' >
                 <FormControlLabel label='Discover' control={<Switch onChange={changeFeed} value={switchStatus}/>} />
             </Box>
             {postElements.reverse()}

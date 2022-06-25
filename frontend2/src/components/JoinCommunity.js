@@ -70,7 +70,7 @@ function JoinCommunity() {
         <div>
             <h2>You're not part of a community!</h2>
             <Link to='/social/communities'><button>Join Now</button></Link>
-            <button onClick={() => setIsActive(prevState => !prevState)} >Create your own!</button>
+            <button className='join-community-btn' onClick={() => setIsActive(prevState => !prevState)} >Create your own!</button>
 
             <div className={`modal-bg ${isActive ? 'bg-active' : ''}`}>
                 <form encType='multipart/form-data'>

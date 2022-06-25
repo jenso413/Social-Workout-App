@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs')
 const { User } = require('../models/User')
 const { Program } = require('../models/Workout')
 const { Log } = require('../models/Log')
+const { cloudinary } = require('../features/cloudinary')
 // const req = require('express/lib/request')
 // const { json } = require('express/lib/response')
 
@@ -74,7 +75,8 @@ const loginUser = async (req, res) => {
             email: user.email,
             token: generateToken(user._id),
             community: user.community,
-            friends: user.friends
+            friends: user.friends,
+            profilePic: user.profilePic
         })
     } else {
         res.status(400).json('Invalid credentials')
@@ -102,14 +104,10 @@ const getUserByUsername = async (req, res) => {
     const { username } = req.params
     console.log(username)
 
-    const user = await User.findOne({ username })
+    const user = await User.findOne({ username }).populate('community').select('-password')
 
     if (user) {
-        res.status(200).json({
-            id: user._id,
-            username: user.username,
-            email: user.email
-        })
+        res.status(200).json(user)
     } else {
         res.status(404).json('No user with that username found')
     }
@@ -228,4 +226,22 @@ const removeFriend = async (req, res) => {
 
 }
 
-module.exports = { registerUser, loginUser, getMe, updateCommunity, getUserByUsername, addFriend, getFriends, incrementStreak, removeFriend }
+// PATCH: /api/auth/user/update
+const updateProfilePic = async (req, res) => {
+    const { profilePic } = req.body
+    const { id } = req.user
+
+    const uploadedResponse = await cloudinary.uploader.upload(profilePic, {
+        upload_preset: 'ml_default'
+    })
+
+    const user = await User.findByIdAndUpdate(id, {profilePic : uploadedResponse})
+
+    if (user) {
+        res.status(200).json(user)
+    } else {
+        res.status(400).json({err: 'Unable to update profile picture'})
+    }
+}
+
+module.exports = { registerUser, loginUser, getMe, updateCommunity, getUserByUsername, addFriend, getFriends, incrementStreak, removeFriend, updateProfilePic }

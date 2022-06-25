@@ -1,0 +1,25 @@
+.modal-content {
+    background: white;
+    position: relative;
+}
+
+.close-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-50%, 50%);
+}
+
+.friend {
+    display: flex;
+}
+
+.friend--info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.friend--community {
+    white-space: nowrap;
+}

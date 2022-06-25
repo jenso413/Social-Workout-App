@@ -42,7 +42,7 @@ export default function FriendList() {
     }, [socket])
 
     const friendElements = friends.map((friend, index) => {
-        return <Friend key={index} name={friend.username} streak={friend.streak}/>
+        return <Friend key={index} name={friend.username} streak={friend.streak} profilePic={friend.profilePic} />
     })
 
     return (

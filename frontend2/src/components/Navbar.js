@@ -6,6 +6,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import SocialIcons from './SocialIcons';
 import FitnessIcons from './FitnessIcons';
 import { useSelector } from 'react-redux'
+import { Image } from 'cloudinary-react'
+import UserAvatar from './UserAvatar'
 
 export default function Navbar() {
 
@@ -34,8 +36,7 @@ export default function Navbar() {
             </div>
             <div className='nav__right'>
                 <div className='user__info' onClick={() => navigate('/user')}>
-                    <Avatar sx={{ height: 40, width: 40 }} src='' />
-                    <h4>{user && user.username}</h4>
+                    <UserAvatar profilePic={user.profilePic} name={user.username} styling='horizontal-navbar medium' />
                 </div>
             </div>
         </nav>

@@ -1,13 +1,8 @@
 .friend {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 1rem;
     width: 80%;
     margin: 2rem auto;
-}
-
-.friend__info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
 }
