@@ -4,12 +4,15 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCommunity } from '../redux/authSlice';
+import { Button } from '@mui/material';
 
-export default function Group({ programName, picture, favColor, wider }) {
+export default function Group({ community, wider }) {
+
+    console.log(community)
+    const { programName, picture, favColor, workouts } = community
+
     const [displayModal, setDisplayModal] = useState('')
     const userId = useSelector((state) => state.auth.user._id)
-    console.log(userId)
-    
     const dispatch = useDispatch()
 
     function joinCommunity() {
@@ -32,11 +35,9 @@ export default function Group({ programName, picture, favColor, wider }) {
         setDisplayModal('')
     }
 
-    // linear-gradient(
-    //   to bottom,
-    //   rgba(0, 0, 0, 0),
-    //   rgba(0, 0, 0, 0.6)
-    // )
+    const workoutElements = workouts.map(workout => {
+        return <span>{workout.workoutName}</span>
+    })
 
     return (
         <>
@@ -57,8 +58,9 @@ export default function Group({ programName, picture, favColor, wider }) {
                     <h1>{programName}</h1>
                     <span> Number of members: 13,000</span>
                     <p>Workouts</p>
+                    {workoutElements}
                     {/* Maybe on click the join button takes you to workout logger page?  */}
-                    <button onClick={handleClick}>Join</button>
+                    <Button onClick={handleClick} variant='contained' sx={{width: '80%'}}>Join</Button>
                 </div>
             </div>
         </>

@@ -51,7 +51,7 @@ export default function LoggerHeader({ displayAddWorkout, displayLogger, workout
                     {/* <ArrowDropDownIcon className={`caret ${toggleDropdown && 'caret-rotate'}`} style={{fontSize: 40}} onClick={() => setToggleDropdown(prevState => !prevState)}/> */}
                     <div className={`caret ${toggleDropdown && 'caret-rotate'}`} style={{fontSize: 40}} onClick={() => setToggleDropdown(prevState => !prevState)}></div>
                 </div>
-                <ul className={`dropdown-menu ${toggleDropdown && 'menu-open'}`}>                    
+                <ul className={`dropdown-menu ${toggleDropdown && 'active'}`}>                    
                     {menuOptions}
                     <li className='menu-option' onClick={handleAddWorkoutClick}>New Workout</li>
                 </ul>

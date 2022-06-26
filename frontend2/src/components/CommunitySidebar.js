@@ -39,9 +39,9 @@ export default function Community() {
 
     return (
         <aside className='community-sidebar'>
+            <h1>Communities</h1>
             {randomCommunities.map((community, index) => {
-                const { programName, picture, favColor } = community
-                return <Group key={index} wider='wider' programName={programName} picture={picture} favColor={favColor}/>
+                return <Group key={index} wider='wider' community={community} />
             })}
             <button className='community--button' onClick={() => navigate('/social/communities')}>View more communities</button>
         </aside>

@@ -14,7 +14,7 @@ router.post('/friend', addFriend)
 router.patch('/friend/:id', removeFriend)
 
 // Not sure why, but wont allow me to run patch to updateProfilePic if this is not commented out
-// router.patch('/user/:id', updateCommunity)
+router.patch('/user/:id', updateCommunity)
 
 router.patch('/user/update', protect, updateProfilePic)
 

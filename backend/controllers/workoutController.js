@@ -16,7 +16,7 @@ async function addProgram(req, res) {
     const newProgram = await new Program({
         programName,
         picture,
-        favColor
+        favColor,
     })
 
     try {
@@ -80,20 +80,24 @@ async function getProgram(req, res) {
 
     // Gets program name passed into request url
     const programId = req.params.id
-    console.log(programId)
 
-    const program = await Program.findOne({_id : programId}).populate('workouts')
+    try {
+        const program = await Program.findOne({_id : programId}).populate('workouts')
 
-    if (program) {
-        res.status(200).json(program)
-    } else {    
-        console.log('Unable to find program')
+        if (program) {
+            res.status(200).json(program)
+        } else {    
+            console.log('Unable to find program')
+        }
+    } catch (error) {
+        console.log(error)
     }
+    
 }
 
 // GET: http://localhost:3001/api/workouts/programs
 async function getAllPrograms(req, res) {
-    const programs = await Program.find({})
+    const programs = await Program.find({}).populate('workouts')
 
     if (programs) {
         res.status(200).json(programs)

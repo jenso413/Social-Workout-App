@@ -35,6 +35,12 @@ const programSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Workout'
         }
+    ],
+    members: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
     ]
 })
 

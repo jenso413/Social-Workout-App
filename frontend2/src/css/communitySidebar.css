@@ -6,6 +6,10 @@
     top: 100px;
 }
 
+.community-sidebar h1 {
+    text-align: center;
+}
+
 .community--button {
     padding: 10px;
     width: 50%;

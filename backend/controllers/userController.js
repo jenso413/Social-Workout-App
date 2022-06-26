@@ -135,24 +135,30 @@ const updateCommunity = async (req, res) => {
     
     const { programName } =  req.body
     const userId = req.params.id
+    console.log(`UserID: ${userId}`)
 
     const date = new Date().toString().slice(4, 15)
 
-    const foundProgram = await Program.findOne({ programName: programName })
+    const joinedProgram = await Program.findOneAndUpdate({ programName: programName }, {$push: {members : userId}})
 
-    if (foundProgram) {
-        const updatedUser = await User.findByIdAndUpdate(userId, {community: foundProgram.id, joinedCommunityDate: date})
+    if (joinedProgram) {
+        const updatedUser = await User.findByIdAndUpdate(userId, {community: joinedProgram.id, joinedCommunityDate: date}, {new: true})
+
+        // Remove user from member list of previous program
+        const user = await User.findById(userId)
+
+        const leavingProgram = await Program.findById(user.community)
+
+        if (leavingProgram) {
+            const index = leavingProgram.members.indexOf(userId)
+            leavingProgram.members.splice(index, 1)
+            await leavingProgram.save()
+        }
     
-        if (updatedUser) {
+        if (updatedUser && joinedProgram) {
             await updatedUser.save()
-            res.status(200).json({
-                _id : updatedUser.id,
-                username: updatedUser.username,
-                email: updatedUser.email,
-                token: generateToken(updatedUser._id),
-                community: updatedUser.community,
-                friends: updatedUser.friends
-            })
+            await joinedProgram.save()
+            res.status(200).json(updatedUser)
         } else {
             res.status(404).json('User not found')
         }

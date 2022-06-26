@@ -79,11 +79,7 @@
     background: #2a2d35;
 }
 
-/* .active {
-    background: #23242a;
-} */
-
-.menu-open {
+.active {
     display: block;
     opacity: 1;
 }

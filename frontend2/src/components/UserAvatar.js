@@ -12,8 +12,8 @@ function UserAvatar({ profilePic, name, styling }) {
 
     return (
         <div className={stylingArray[0]}>
-            <h3>{name}</h3>
             <Avatar className={stylingArray[1]} src={profilePic ? profilePic.url : ''} />
+            <h3>{name}</h3>
         </div>
     )
 }

@@ -9,9 +9,11 @@ function LeaderboardUser({ name, communityId, profilePic, streak, rank, joinDate
     const userId = useSelector(state => state.auth.user._id)
 
     useEffect(() => {
-        fetch(`/api/workouts/program/${communityId}`)
-            .then(res => res.json())
-            .then(data => setCommunityName(data.programName))
+        if (communityId) {
+            fetch(`/api/workouts/program/${communityId}`)
+                .then(res => res.json())
+                .then(data => setCommunityName(data.programName))
+        }
     }, [leaderboardMode])
 
 
@@ -47,7 +49,7 @@ function LeaderboardUser({ name, communityId, profilePic, streak, rank, joinDate
                         <UserAvatar profilePic={profilePic} name={name} styling='horizontal-friendlist small'/>
                     </td>
                     <td>
-                        <h3>{communityName}</h3>
+                        <h3>{communityName ? communityName : 'N/A'}</h3>
                     </td>
                 </tr>)
             }

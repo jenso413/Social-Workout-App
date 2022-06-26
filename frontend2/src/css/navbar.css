@@ -41,6 +41,7 @@ nav {
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
 }
 
 .user__info h4 {
@@ -48,5 +49,17 @@ nav {
     margin-left: 1rem;
 }
 
+.dropdown-menu.dropdown-navbar {
+    width: fit-content;
+    transform: translateX(-70%);
+}
+
+.dropdown-menu ul {
+    list-style: none;
+}
+
+.dropdown-menu li {
+    white-space: nowrap;
+}
 
 
