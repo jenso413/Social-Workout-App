@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const API_URL = '/api/auth/'
 
@@ -67,7 +68,8 @@ const authService = {
     register,
     updateCommunity,
     addFriend,
-    login
+    login,
+    logout
 }
 
 export default authService;

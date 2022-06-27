@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Group from './Group'
 import '../css/communitySidebar.css'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '@mui/material'
 
 export default function Community() {
 
@@ -43,7 +44,7 @@ export default function Community() {
             {randomCommunities.map((community, index) => {
                 return <Group key={index} wider='wider' community={community} />
             })}
-            <button className='community--button' onClick={() => navigate('/social/communities')}>View more communities</button>
+            <Button sx={{display: 'block', margin: '0 auto'}} onClick={() => navigate('/social/communities')} variant='outlined'>View more communities</Button>
         </aside>
     )
 }

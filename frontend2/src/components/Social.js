@@ -9,20 +9,16 @@ import { useSelector } from 'react-redux'
 
 function Social() {
 
-  const { user } = useSelector((state) => state.auth)
-
-  console.log (user)
-
-  return (
-    <div className="App">
-      <Navbar />
-      <div className='grid-container'>
-          <FriendList />
-          <MainFeed />
-          <CommunitySidebar />
+    return (
+      <div className="App">
+        <Navbar />
+        <div className='grid-container'>
+            <FriendList />
+            <MainFeed />
+            <CommunitySidebar />
+        </div>
       </div>
-    </div>
-  );
+    );
 }
 
 export default Social;

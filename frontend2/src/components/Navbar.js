@@ -5,17 +5,19 @@ import { Avatar, Button, IconButton } from '@mui/material'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import SocialIcons from './SocialIcons';
 import FitnessIcons from './FitnessIcons';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Image } from 'cloudinary-react'
 import UserAvatar from './UserAvatar'
 import CloseIcon from '@mui/icons-material/Close';
+import { logout } from '../redux/authSlice'
 
 export default function Navbar() {
 
+    const location = useLocation()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const { user } = useSelector(state => state.auth)
-    const location = useLocation()
     const [navbarStatus, setNavbarStatus] = useState(null)
     const [dropdown, setDropdown] = useState(false)
     const [signOutModal, setSignOutModal] = useState(false)
@@ -29,7 +31,8 @@ export default function Navbar() {
     }, [])
 
     function signOut() {
-        console.log('hi')
+        dispatch(logout())
+        navigate('/')
     }
 
     return (
