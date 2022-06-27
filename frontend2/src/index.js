@@ -18,26 +18,35 @@ import 'react-toastify/dist/ReactToastify.css'
 import Logger from './components/Logger';
 import Graph from './components/Graph';
 import Leaderboard from './components/Leaderboard';
+import { ThemeProvider, createTheme } from '@mui/material'
+
+const theme = createTheme({
+  typography: {
+      fontFamily: 'Anek Latin, sans-serif'
+  }
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<UserAuth />} />
-        <Route path='social' element={<Social />} />
-        <Route path='fitness' element={<Fitness />} />
-        <Route path='main' element={<App />} />
-        <Route path='fitness/workout' element={<Logger />} />
-        <Route path='social/communities' element={<Communities />} />
-        <Route path='social/friends' element={<Friends />} />
-        <Route path='fitness/graph' element={<Graph />} />
-        <Route path='user' element={<UserInfo />} />
-        <Route path='social/leaderboard' element={<Leaderboard />} />
-      </Routes>
-    </BrowserRouter>
-    <ToastContainer />
-  </Provider>
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<UserAuth />} />
+          <Route path='social' element={<Social />} />
+          <Route path='fitness' element={<Fitness />} />
+          <Route path='main' element={<App />} />
+          <Route path='fitness/workout' element={<Logger />} />
+          <Route path='social/communities' element={<Communities />} />
+          <Route path='social/friends' element={<Friends />} />
+          <Route path='fitness/graph' element={<Graph />} />
+          <Route path='user' element={<UserInfo />} />
+          <Route path='social/leaderboard' element={<Leaderboard />} />
+        </Routes>
+      </BrowserRouter>
+      <ToastContainer />
+    </Provider>
+  </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
